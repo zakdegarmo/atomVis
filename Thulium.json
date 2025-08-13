@@ -1,0 +1,51 @@
+{
+  "name": "Thulium",
+  "appearance": "silvery gray",
+  "atomic_mass": 168.934222,
+  "boil": 2223,
+  "category": "lanthanide",
+  "density": 9.32,
+  "discovered_by": "Per Teodor Cleve",
+  "melt": 1818,
+  "molar_heat": 27.03,
+  "named_by": null,
+  "number": 69,
+  "period": 6,
+  "group": 3,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Thulium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_069_thulium/element_069_thulium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_069_thulium/element_069_thulium.glb",
+  "spectral_img": null,
+  "summary": "Thulium is a chemical element with symbol Tm and atomic number 69. It is the thirteenth and antepenultimate (third-last) element in the lanthanide series. Like the other lanthanides, the most common oxidation state is +3, seen in its oxide, halides and other compounds.",
+  "symbol": "Tm",
+  "xpos": 15,
+  "ypos": 9,
+  "wxpos": 15,
+  "wypos": 6,
+  "shells": [
+    2,
+    8,
+    18,
+    31,
+    8,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f13",
+  "electron_configuration_semantic": "[Xe] 4f13 6s2",
+  "electron_affinity": 99,
+  "electronegativity_pauling": 1.25,
+  "ionization_energies": [
+    596.7,
+    1160,
+    2285,
+    4120
+  ],
+  "cpk-hex": "00d452",
+  "image": {
+    "title": "Ultrapure (99.997%) Crystalline Thulium, 22.3 grams, 3 × 3 × 2 cm in size",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Thulium-2.jpg",
+    "attribution": "Jurii, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/thulium.php"
+  },
+  "block": "f"
+}

@@ -1,0 +1,51 @@
+{
+  "name": "Rhenium",
+  "appearance": "silvery-grayish",
+  "atomic_mass": 186.2071,
+  "boil": 5869,
+  "category": "transition metal",
+  "density": 21.02,
+  "discovered_by": "Masataka Ogawa",
+  "melt": 3459,
+  "molar_heat": 25.48,
+  "named_by": "Walter Noddack",
+  "number": 75,
+  "period": 6,
+  "group": 7,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Rhenium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_075_rhenium/element_075_rhenium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_075_rhenium/element_075_rhenium.glb",
+  "spectral_img": null,
+  "summary": "Rhenium is a chemical element with symbol Re and atomic number 75. It is a silvery-white, heavy, third-row transition metal in group 7 of the periodic table. With an estimated average concentration of 1 part per billion (ppb), rhenium is one of the rarest elements in the Earth's crust.",
+  "symbol": "Re",
+  "xpos": 7,
+  "ypos": 6,
+  "wxpos": 21,
+  "wypos": 6,
+  "shells": [
+    2,
+    8,
+    18,
+    32,
+    13,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d5",
+  "electron_configuration_semantic": "[Xe] 4f14 5d5 6s2",
+  "electron_affinity": 5.8273,
+  "electronegativity_pauling": 1.9,
+  "ionization_energies": [
+    760,
+    1260,
+    2510,
+    3640
+  ],
+  "cpk-hex": "267dab",
+  "image": {
+    "title": "Pure Rhenium Bead, arc melted, 21 grams. Original size in cm: 1.5 x 1.7. Measured radiation dose <0.05 μS/h.",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Pure_rhenium_bead%2C_arc_melted%2C_21_grams._Original_size_in_cm_-_1.5_x_1.7.jpg",
+    "attribution": "Hi-Res Images ofChemical Elements, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/rhenium.php"
+  },
+  "block": "d"
+}

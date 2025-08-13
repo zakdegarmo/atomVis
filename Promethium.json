@@ -1,0 +1,51 @@
+{
+  "name": "Promethium",
+  "appearance": "metallic",
+  "atomic_mass": 145,
+  "boil": 3273,
+  "category": "lanthanide",
+  "density": 7.26,
+  "discovered_by": "Chien Shiung Wu",
+  "melt": 1315,
+  "molar_heat": null,
+  "named_by": "Isotopes of promethium",
+  "number": 61,
+  "period": 6,
+  "group": 3,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Promethium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_061_promethium/element_061_promethium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_061_promethium/element_061_promethium.glb",
+  "spectral_img": null,
+  "summary": "Promethium, originally prometheum, is a chemical element with the symbol Pm and atomic number 61. All of its isotopes are radioactive; it is one of only two such elements that are followed in the periodic table by elements with stable forms, a distinction shared with technetium. Chemically, promethium is a lanthanide, which forms salts when combined with other elements.",
+  "symbol": "Pm",
+  "xpos": 7,
+  "ypos": 9,
+  "wxpos": 7,
+  "wypos": 6,
+  "shells": [
+    2,
+    8,
+    18,
+    23,
+    8,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f5",
+  "electron_configuration_semantic": "[Xe] 4f5 6s2",
+  "electron_affinity": 12.45,
+  "electronegativity_pauling": 1.13,
+  "ionization_energies": [
+    540,
+    1050,
+    2150,
+    3970
+  ],
+  "cpk-hex": "a3ffc7",
+  "image": {
+    "title": "Photomontage of what promethium metal might look like (it is too radioactive and real images are not available)",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/5b/Promethium.jpg",
+    "attribution": "Unknown authorUnknown author, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/promethium.php"
+  },
+  "block": "f"
+}

@@ -1,0 +1,53 @@
+{
+  "name": "Bromine",
+  "appearance": null,
+  "atomic_mass": 79.904,
+  "boil": 332,
+  "category": "diatomic nonmetal",
+  "density": 3.1028,
+  "discovered_by": "Antoine Jérôme Balard",
+  "melt": 265.8,
+  "molar_heat": null,
+  "named_by": null,
+  "number": 35,
+  "period": 4,
+  "group": 17,
+  "phase": "Liquid",
+  "source": "https://en.wikipedia.org/wiki/Bromine",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_035_bromine/element_035_bromine_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_035_bromine/element_035_bromine.glb",
+  "spectral_img": null,
+  "summary": "Bromine (from Ancient Greek:βρῶμος, brómos, meaning \"stench\") is a chemical element with symbol Br, and atomic number 35. It is a halogen. The element was isolated independently by two chemists, Carl Jacob Löwig and Antoine Jerome Balard, in 1825–1826.",
+  "symbol": "Br",
+  "xpos": 17,
+  "ypos": 4,
+  "wxpos": 31,
+  "wypos": 4,
+  "shells": [
+    2,
+    8,
+    18,
+    7
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p5",
+  "electron_configuration_semantic": "[Ar] 3d10 4s2 4p5",
+  "electron_affinity": 324.537,
+  "electronegativity_pauling": 2.96,
+  "ionization_energies": [
+    1139.9,
+    2103,
+    3470,
+    4560,
+    5760,
+    8550,
+    9940,
+    18600
+  ],
+  "cpk-hex": "a62929",
+  "image": {
+    "title": "99.5 % pure liquid Bromine in a 4 x 1 cm big glass ampoule, cast in acrylic",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/8/87/Bromine-ampoule.jpg",
+    "attribution": "Jurii, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/bromine.php"
+  },
+  "block": "p"
+}

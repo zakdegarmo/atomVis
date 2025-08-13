@@ -1,0 +1,48 @@
+{
+  "name": "Palladium",
+  "appearance": "silvery white",
+  "atomic_mass": 106.421,
+  "boil": 3236,
+  "category": "transition metal",
+  "density": 12.023,
+  "discovered_by": "William Hyde Wollaston",
+  "melt": 1828.05,
+  "molar_heat": 25.98,
+  "named_by": null,
+  "number": 46,
+  "period": 5,
+  "group": 10,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Palladium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_046_palladium/element_046_palladium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_046_palladium/element_046_palladium.glb",
+  "spectral_img": null,
+  "summary": "Palladium is a chemical element with symbol Pd and atomic number 46. It is a rare and lustrous silvery-white metal discovered in 1803 by William Hyde Wollaston. He named it after the asteroid Pallas, which was itself named after the epithet of the Greek goddess Athena, acquired by her when she slew Pallas.",
+  "symbol": "Pd",
+  "xpos": 10,
+  "ypos": 5,
+  "wxpos": 24,
+  "wypos": 5,
+  "shells": [
+    2,
+    8,
+    18,
+    18
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 4d10",
+  "electron_configuration_semantic": "[Kr] 4d10",
+  "electron_affinity": 54.24,
+  "electronegativity_pauling": 2.2,
+  "ionization_energies": [
+    804.4,
+    1870,
+    3177
+  ],
+  "cpk-hex": "006985",
+  "image": {
+    "title": "Palladium Crystal, about 1 gram. Original size in cm: 0.5 x 1",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Palladium_%2846_Pd%29.jpg",
+    "attribution": "Hi-Res Images ofChemical Elements, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/palladium.php"
+  },
+  "block": "d"
+}

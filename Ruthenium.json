@@ -1,0 +1,49 @@
+{
+  "name": "Ruthenium",
+  "appearance": "silvery white metallic",
+  "atomic_mass": 101.072,
+  "boil": 4423,
+  "category": "transition metal",
+  "density": 12.45,
+  "discovered_by": "Karl Ernst Claus",
+  "melt": 2607,
+  "molar_heat": 24.06,
+  "named_by": null,
+  "number": 44,
+  "period": 5,
+  "group": 8,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Ruthenium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_044_ruthenium/element_044_ruthenium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_044_ruthenium/element_044_ruthenium.glb",
+  "spectral_img": null,
+  "summary": "Ruthenium is a chemical element with symbol Ru and atomic number 44. It is a rare transition metal belonging to the platinum group of the periodic table. Like the other metals of the platinum group, ruthenium is inert to most other chemicals.",
+  "symbol": "Ru",
+  "xpos": 8,
+  "ypos": 5,
+  "wxpos": 22,
+  "wypos": 5,
+  "shells": [
+    2,
+    8,
+    18,
+    15,
+    1
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s1 4d7",
+  "electron_configuration_semantic": "[Kr] 4d7 5s1",
+  "electron_affinity": 100.96,
+  "electronegativity_pauling": 2.2,
+  "ionization_energies": [
+    710.2,
+    1620,
+    2747
+  ],
+  "cpk-hex": "248f8f",
+  "image": {
+    "title": "Ruthenium Crystal, 0.6 grams, 0.6 x 1.3 cm size",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Ruthenium_crystal.jpg",
+    "attribution": "Hi-Res Images ofChemical Elements, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/ruthenium.php"
+  },
+  "block": "d"
+}

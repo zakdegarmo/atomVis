@@ -1,0 +1,49 @@
+{
+  "name": "Osmium",
+  "appearance": "silvery, blue cast",
+  "atomic_mass": 190.233,
+  "boil": 5285,
+  "category": "transition metal",
+  "density": 22.59,
+  "discovered_by": "Smithson Tennant",
+  "melt": 3306,
+  "molar_heat": 24.7,
+  "named_by": null,
+  "number": 76,
+  "period": 6,
+  "group": 8,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Osmium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_076_osmium/element_076_osmium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_076_osmium/element_076_osmium.glb",
+  "spectral_img": null,
+  "summary": "Osmium (from Greek osme (ὀσμή) meaning \"smell\") is a chemical element with symbol Os and atomic number 76. It is a hard, brittle, bluish-white transition metal in the platinum group that is found as a trace element in alloys, mostly in platinum ores. Osmium is the densest naturally occurring element, with a density of 22.59 g/cm3.",
+  "symbol": "Os",
+  "xpos": 8,
+  "ypos": 6,
+  "wxpos": 22,
+  "wypos": 6,
+  "shells": [
+    2,
+    8,
+    18,
+    32,
+    14,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d6",
+  "electron_configuration_semantic": "[Xe] 4f14 5d6 6s2",
+  "electron_affinity": 103.99,
+  "electronegativity_pauling": 2.2,
+  "ionization_energies": [
+    840,
+    1600
+  ],
+  "cpk-hex": "266696",
+  "image": {
+    "title": "Pure Osmium Bead",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Osmium-bead.jpg",
+    "attribution": "Jurii, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/osmium.php"
+  },
+  "block": "d"
+}

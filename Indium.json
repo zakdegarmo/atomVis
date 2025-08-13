@@ -1,0 +1,50 @@
+{
+  "name": "Indium",
+  "appearance": "silvery lustrous gray",
+  "atomic_mass": 114.8181,
+  "boil": 2345,
+  "category": "post-transition metal",
+  "density": 7.31,
+  "discovered_by": "Ferdinand Reich",
+  "melt": 429.7485,
+  "molar_heat": 26.74,
+  "named_by": null,
+  "number": 49,
+  "period": 5,
+  "group": 13,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Indium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_049_indium/element_049_indium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_049_indium/element_049_indium.glb",
+  "spectral_img": null,
+  "summary": "Indium is a chemical element with symbol In and atomic number 49. It is a post-transition metallic element that is rare in Earth's crust. The metal is very soft, malleable and easily fusible, with a melting point higher than sodium, but lower than lithium or tin.",
+  "symbol": "In",
+  "xpos": 13,
+  "ypos": 5,
+  "wxpos": 27,
+  "wypos": 5,
+  "shells": [
+    2,
+    8,
+    18,
+    18,
+    3
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p1",
+  "electron_configuration_semantic": "[Kr] 4d10 5s2 5p1",
+  "electron_affinity": 37.043,
+  "electronegativity_pauling": 1.78,
+  "ionization_energies": [
+    558.3,
+    1820.7,
+    2704,
+    5210
+  ],
+  "cpk-hex": "a67573",
+  "image": {
+    "title": "1.5 x 1.5 cm liquid indium",
+    "url": "https://images-of-elements.com/indium-2.jpg",
+    "attribution": "Jurii, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: http://images-of-elements.com/indium.php"
+  },
+  "block": "p"
+}

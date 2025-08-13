@@ -1,0 +1,49 @@
+{
+  "name": "Rhodium",
+  "appearance": "silvery white metallic",
+  "atomic_mass": 102.905502,
+  "boil": 3968,
+  "category": "transition metal",
+  "density": 12.41,
+  "discovered_by": "William Hyde Wollaston",
+  "melt": 2237,
+  "molar_heat": 24.98,
+  "named_by": null,
+  "number": 45,
+  "period": 5,
+  "group": 9,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Rhodium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_045_rhodium/element_045_rhodium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_045_rhodium/element_045_rhodium.glb",
+  "spectral_img": null,
+  "summary": "Rhodium is a chemical element with symbol Rh and atomic number 45. It is a rare, silvery-white, hard, and chemically inert transition metal. It is a member of the platinum group.",
+  "symbol": "Rh",
+  "xpos": 9,
+  "ypos": 5,
+  "wxpos": 23,
+  "wypos": 5,
+  "shells": [
+    2,
+    8,
+    18,
+    16,
+    1
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s1 4d8",
+  "electron_configuration_semantic": "[Kr] 4d8 5s1",
+  "electron_affinity": 110.27,
+  "electronegativity_pauling": 2.28,
+  "ionization_energies": [
+    719.7,
+    1740,
+    2997
+  ],
+  "cpk-hex": "0a7d8c",
+  "image": {
+    "title": "Pure Rhodium Bead, 1 gram. Original size in cm: 0.5",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/54/Rhodium_%28Rh%29.jpg",
+    "attribution": "Hi-Res Images ofChemical Elements, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/rhodium.php"
+  },
+  "block": "d"
+}

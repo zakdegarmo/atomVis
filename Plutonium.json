@@ -1,0 +1,49 @@
+{
+  "name": "Plutonium",
+  "appearance": "silvery white, tarnishing to dark gray in air",
+  "atomic_mass": 244,
+  "boil": 3505,
+  "category": "actinide",
+  "density": 19.816,
+  "discovered_by": "Glenn T. Seaborg",
+  "melt": 912.5,
+  "molar_heat": 35.5,
+  "named_by": null,
+  "number": 94,
+  "period": 7,
+  "group": 3,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Plutonium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_094_plutonium/element_094_plutonium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_094_plutonium/element_094_plutonium.glb",
+  "spectral_img": null,
+  "summary": "Plutonium is a transuranic radioactive chemical element with symbol Pu and atomic number 94. It is an actinide metal of silvery-gray appearance that tarnishes when exposed to air, and forms a dull coating when oxidized. The element normally exhibits six allotropes and four oxidation states.",
+  "symbol": "Pu",
+  "xpos": 8,
+  "ypos": 10,
+  "wxpos": 8,
+  "wypos": 7,
+  "shells": [
+    2,
+    8,
+    18,
+    32,
+    24,
+    8,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f6",
+  "electron_configuration_semantic": "[Rn] 5f6 7s2",
+  "electron_affinity": -48.33,
+  "electronegativity_pauling": 1.28,
+  "ionization_energies": [
+    584.7
+  ],
+  "cpk-hex": "006bff",
+  "image": {
+    "title": "Plutonium Ring",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Plutonium_ring.jpg",
+    "attribution": "Los Alamos National Laboratory, Attribution, via Wikimedia Commons"
+  },
+  "block": "f"
+}
