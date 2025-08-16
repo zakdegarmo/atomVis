@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import * as THREE from 'three';
 import { GoogleGenAI, Type } from '@google/genai';
@@ -60,6 +59,9 @@ const App: React.FC = () => {
   const [electronSpeed, setElectronSpeed] = useState<number>(0.2);
   const [bondingProgress, setBondingProgress] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  // Quantum mode toggle (secondary/fun feature)
+  const [quantumMode, setQuantumMode] = useState<boolean>(false);
 
   // State for Gemini feature
   const [showInfoCard, setShowInfoCard] = useState<boolean>(false);
@@ -256,7 +258,7 @@ const App: React.FC = () => {
                 }
                 
                 for (let i = 0; i < count; i++) {
-                    newSymbols.push(normalizedSymbol);
+                    newSymbols.push(normalizedSymbol as string);
                 }
                 lastIndex = regex.lastIndex;
             }
@@ -283,9 +285,7 @@ const App: React.FC = () => {
   // Effect to load data for all selected atoms and determine bonding structure
   useEffect(() => {
     if (elementList.length === 0 || atomSymbols.length === 0) return;
-    
     setIsLoading(true);
-
     Promise.all(atomSymbols.map(symbol => fetchAtomData(symbol, elementList)))
       .then(fetchedAtoms => {
         // Filter out any nulls from failed fetches
@@ -295,11 +295,9 @@ const App: React.FC = () => {
             return;
         }
         setAtoms(validAtoms);
-        
         // Determine bonding structure
         const signature = atomSymbols.join('');
         const moleculeData = knownMolecules[signature];
-        
         let newBondingPairs: Bond[] = [];
         if (moleculeData) {
             setMoleculeName(moleculeData.name);
@@ -309,21 +307,34 @@ const App: React.FC = () => {
         }
         setBondingPairs(newBondingPairs);
         setBondingProgress(newBondingPairs.length > 0 ? 1 : 0);
-        
-        // Calculate default positions
-        const newPositions: THREE.Vector3[] = [];
-        if (validAtoms.length > 0) {
-            newPositions.push(new THREE.Vector3(0, 0, 0)); // Central atom
-            if (validAtoms.length > 1) {
-                // Place other atoms on a sphere for a default layout
-                const spherePoints = getSpherePoints(validAtoms.length - 1, 15);
-                spherePoints.forEach(point => newPositions.push(point));
-            }
-        }
-        setAtomPositions(newPositions);
         // Loading state is turned off by AtomViewer after rendering is complete
       });
   }, [atomSymbols, elementList, fetchAtomData]);
+
+  // --- Proximity-based Atom Placement (bondingProgress controls distance) ---
+  useEffect(() => {
+    function getFibonacciSpherePoints(samples: number, radius: number): THREE.Vector3[] {
+      if (samples <= 0) return [];
+      if (samples === 1) return [new THREE.Vector3(0, 0, 0)];
+      let points = [];
+      const phi = Math.PI * (3. - Math.sqrt(5.));
+      for (let i = 0; i < samples; i++) {
+          const y = 1 - (i / (samples - 1)) * 2;
+          const r = Math.sqrt(1 - y * y);
+          points.push(new THREE.Vector3(Math.cos(phi * i) * r * radius, y * radius, Math.sin(phi * i) * r * radius));
+      }
+      return points;
+    }
+    const atomCount = atoms.length;
+    const baseRadius = 15;
+    const minRadius = 2.5;
+    let newPositions: THREE.Vector3[] = [];
+    if (atomCount > 0) {
+      const bondRadius = baseRadius - (baseRadius - minRadius) * (bondingProgress || 0);
+      newPositions = getFibonacciSpherePoints(atomCount, bondRadius);
+    }
+    setAtomPositions(newPositions);
+  }, [atoms, bondingProgress]);
   
   // Auto-build on first load when element list is ready
   useEffect(() => {
@@ -432,11 +443,11 @@ const App: React.FC = () => {
                 <div className="border-b border-gray-600/50 my-3"></div>
 
                 <div>
-                    <div className="flex justify-between items-center mb-1">
-                        <label htmlFor="total-atoms-slider" className="text-sm font-medium text-gray-300">Total Atoms</label>
-                        <span className="font-bold text-blue-400 text-lg">{totalAtoms}</span>
-                    </div>
-                    <input type="range" id="total-atoms-slider" min="1" max="100" value={totalAtoms} onChange={(e) => setTotalAtoms(parseInt(e.target.value))} className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-500" />
+                  <div className="flex justify-between items-center mb-1">
+                      <label htmlFor="total-atoms-slider" className="text-sm font-medium text-gray-300">Total Atoms</label>
+                      <span className="font-bold text-blue-400 text-lg">{totalAtoms}</span>
+                  </div>
+                  <input type="range" id="total-atoms-slider" min="1" max="100" value={totalAtoms} onChange={(e) => setTotalAtoms(parseInt(e.target.value))} className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-500" />
                 </div>
                 <div className={`grid ${atomGridColsClass} gap-x-4 gap-y-2 max-h-[40vh] overflow-y-auto pr-2`}>
                   {atomSymbols.map((symbol, index) => (
@@ -481,6 +492,20 @@ const App: React.FC = () => {
                   </div>
                   <input type="range" id="speed-slider" min="0" max="1" step="0.01" value={electronSpeed} onChange={(e) => setElectronSpeed(parseFloat(e.target.value))} className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-purple-500" />
                 </div>
+                <div className="flex items-center mt-4">
+                  <input
+                    type="checkbox"
+                    id="quantum-mode-toggle"
+                    checked={quantumMode}
+                    onChange={() => setQuantumMode(q => !q)}
+                    className="accent-cyan-500 mr-2 w-5 h-5 cursor-pointer"
+                  />
+                  <label htmlFor="quantum-mode-toggle" className="text-base text-cyan-300 cursor-pointer select-none font-semibold flex items-center">
+                    Quantum Cloud Mode
+                    <span className="ml-2 px-2 py-0.5 bg-cyan-700 text-xs rounded-full animate-pulse">NEW</span>
+                    <span className="ml-2 text-xs text-gray-400">(see electron clouds!)</span>
+                  </label>
+                </div>
             </div>
         </div>
       </div>
@@ -495,19 +520,11 @@ const App: React.FC = () => {
           electronSpeed={electronSpeed}
           setIsLoading={setIsLoading}
           onAtomRightClick={handleAtomRightClick}
+          quantumMode={quantumMode}
         />
       </main>
 
-      {showInfoCard && (
-          <MoleculeInfoCard
-              moleculeName={moleculeName}
-              info={moleculeInfo}
-              loading={isInfoLoading}
-              error={infoError}
-              onClose={() => setShowInfoCard(false)}
-          />
-      )}
-      
+      {/* ContextMenu rendering - fixed props */}
       {contextMenu.visible && (
         <ContextMenu
           x={contextMenu.x}
@@ -521,11 +538,7 @@ const App: React.FC = () => {
         />
       )}
 
-       {isLoading && (
-        <div id="loading-overlay" className="absolute inset-0 bg-gray-900/80 flex items-center justify-center z-50 transition-opacity duration-300">
-          <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-        </div>
-      )}
+
 
       <footer className="absolute bottom-0 left-0 right-0 p-2 text-center text-xs text-gray-500 z-10 bg-gray-900/50">
         <p>Use your mouse to orbit (left-click & drag), zoom (scroll), and pan (right-click & drag).</p>
