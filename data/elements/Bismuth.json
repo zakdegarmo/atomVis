@@ -1,0 +1,53 @@
+{
+  "name": "Bismuth",
+  "appearance": "lustrous silver",
+  "atomic_mass": 208.980401,
+  "boil": 1837,
+  "category": "post-transition metal",
+  "density": 9.78,
+  "discovered_by": "Claude François Geoffroy",
+  "melt": 544.7,
+  "molar_heat": 25.52,
+  "named_by": null,
+  "number": 83,
+  "period": 6,
+  "group": 15,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Bismuth",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_083_bismuth/element_083_bismuth_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_083_bismuth/element_083_bismuth.glb",
+  "spectral_img": null,
+  "summary": "Bismuth is a chemical element with symbol Bi and atomic number 83. Bismuth, a pentavalent post-transition metal, chemically resembles arsenic and antimony. Elemental bismuth may occur naturally, although its sulfide and oxide form important commercial ores.",
+  "symbol": "Bi",
+  "xpos": 15,
+  "ypos": 6,
+  "wxpos": 29,
+  "wypos": 6,
+  "shells": [
+    2,
+    8,
+    18,
+    32,
+    18,
+    5
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p3",
+  "electron_configuration_semantic": "[Xe] 4f14 5d10 6s2 6p3",
+  "electron_affinity": 90.924,
+  "electronegativity_pauling": 2.02,
+  "ionization_energies": [
+    703,
+    1610,
+    2466,
+    4370,
+    5400,
+    8520
+  ],
+  "cpk-hex": "9e4fb5",
+  "image": {
+    "title": "Bismuth Crystal",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Bismuth-2.jpg",
+    "attribution": "Jurii, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/bismuth.php"
+  },
+  "block": "p"
+}

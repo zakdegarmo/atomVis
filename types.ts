@@ -1,3 +1,4 @@
+import type * as THREE from 'three';
 
 export interface AtomImage {
   title: string;
@@ -72,4 +73,11 @@ export interface ContextMenuState {
   x: number;
   y: number;
   atomIndex: number;
+}
+
+export interface ParsedMoleculeData {
+  name: string;
+  symbols: string[];
+  positions: THREE.Vector3[];
+  bonds: Bond[];
 }

@@ -1,0 +1,49 @@
+{
+  "name": "Iridium",
+  "appearance": "silvery white",
+  "atomic_mass": 192.2173,
+  "boil": 4403,
+  "category": "transition metal",
+  "density": 22.56,
+  "discovered_by": "Smithson Tennant",
+  "melt": 2719,
+  "molar_heat": 25.1,
+  "named_by": null,
+  "number": 77,
+  "period": 6,
+  "group": 9,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Iridium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_077_iridium/element_077_iridium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_077_iridium/element_077_iridium.glb",
+  "spectral_img": null,
+  "summary": "Iridium is a chemical element with symbol Ir and atomic number 77. A very hard, brittle, silvery-white transition metal of the platinum group, iridium is generally credited with being the second densest element (after osmium) based on measured density, although calculations involving the space lattices of the elements show that iridium is denser. It is also the most corrosion-resistant metal, even at temperatures as high as 2000 °C. Although only certain molten salts and halogens are corrosive to solid iridium, finely divided iridium dust is much more reactive and can be flammable.",
+  "symbol": "Ir",
+  "xpos": 9,
+  "ypos": 6,
+  "wxpos": 23,
+  "wypos": 6,
+  "shells": [
+    2,
+    8,
+    18,
+    32,
+    15,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d7",
+  "electron_configuration_semantic": "[Xe] 4f14 5d7 6s2",
+  "electron_affinity": 150.94,
+  "electronegativity_pauling": 2.2,
+  "ionization_energies": [
+    880,
+    1600
+  ],
+  "cpk-hex": "175487",
+  "image": {
+    "title": "Pieces of Pure Iridium, 1 gram. Original size: 0.1 - 0.3 cm each",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Iridium-2.jpg",
+    "attribution": "Unknown authorUnknown author, CC BY 1.0 <https://creativecommons.org/licenses/by/1.0>, via Wikimedia Commons, source: https://images-of-elements.com/iridium.php"
+  },
+  "block": "d"
+}

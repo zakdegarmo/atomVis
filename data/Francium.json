@@ -1,0 +1,49 @@
+{
+  "name": "Francium",
+  "appearance": null,
+  "atomic_mass": 223,
+  "boil": 950,
+  "category": "alkali metal",
+  "density": 1.87,
+  "discovered_by": "Marguerite Perey",
+  "melt": 300,
+  "molar_heat": null,
+  "named_by": null,
+  "number": 87,
+  "period": 7,
+  "group": 1,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Francium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_087_francium/element_087_francium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_087_francium/element_087_francium.glb",
+  "spectral_img": null,
+  "summary": "Francium is a chemical element with symbol Fr and atomic number 87. It used to be known as eka-caesium and actinium K. It is the second-least electronegative element, behind only caesium. Francium is a highly radioactive metal that decays into astatine, radium, and radon.",
+  "symbol": "Fr",
+  "xpos": 1,
+  "ypos": 7,
+  "wxpos": 1,
+  "wypos": 7,
+  "shells": [
+    2,
+    8,
+    18,
+    32,
+    18,
+    8,
+    1
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s1",
+  "electron_configuration_semantic": "[Rn] 7s1",
+  "electron_affinity": 46.89,
+  "electronegativity_pauling": 0.79,
+  "ionization_energies": [
+    380
+  ],
+  "cpk-hex": "420066",
+  "image": {
+    "title": "This is only an illustration, not francium itself.",
+    "url": "https://images-of-elements.com/francium.jpg",
+    "attribution": "Chemical ELements A Virtual Museum, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0> source: https://images-of-elements.com/francium.jpg"
+  },
+  "block": "s"
+}

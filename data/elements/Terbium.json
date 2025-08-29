@@ -1,0 +1,51 @@
+{
+  "name": "Terbium",
+  "appearance": "silvery white",
+  "atomic_mass": 158.925352,
+  "boil": 3396,
+  "category": "lanthanide",
+  "density": 8.23,
+  "discovered_by": "Carl Gustaf Mosander",
+  "melt": 1629,
+  "molar_heat": 28.91,
+  "named_by": null,
+  "number": 65,
+  "period": 6,
+  "group": 3,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Terbium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_065_terbium/element_065_terbium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_065_terbium/element_065_terbium.glb",
+  "spectral_img": null,
+  "summary": "Terbium is a chemical element with symbol Tb and atomic number 65. It is a silvery-white rare earth metal that is malleable, ductile and soft enough to be cut with a knife. Terbium is never found in nature as a free element, but it is contained in many minerals, including cerite, gadolinite, monazite, xenotime and euxenite.",
+  "symbol": "Tb",
+  "xpos": 11,
+  "ypos": 9,
+  "wxpos": 11,
+  "wypos": 6,
+  "shells": [
+    2,
+    8,
+    18,
+    27,
+    8,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f9",
+  "electron_configuration_semantic": "[Xe] 4f9 6s2",
+  "electron_affinity": 112.4,
+  "electronegativity_pauling": 1.1,
+  "ionization_energies": [
+    565.8,
+    1110,
+    2114,
+    3839
+  ],
+  "cpk-hex": "30ffc7",
+  "image": {
+    "title": "Pure Terbium, 3 grams. Original size: 1 cm",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Terbium-2.jpg",
+    "attribution": "Unknown authorUnknown author, CC BY 1.0 <https://creativecommons.org/licenses/by/1.0>, via Wikimedia Commons, source: https://images-of-elements.com/terbium.php"
+  },
+  "block": "f"
+}

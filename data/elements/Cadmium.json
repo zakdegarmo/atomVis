@@ -1,0 +1,49 @@
+{
+  "name": "Cadmium",
+  "appearance": "silvery bluish-gray metallic",
+  "atomic_mass": 112.4144,
+  "boil": 1040,
+  "category": "transition metal",
+  "density": 8.65,
+  "discovered_by": "Karl Samuel Leberecht Hermann",
+  "melt": 594.22,
+  "molar_heat": 26.02,
+  "named_by": "Isotopes of cadmium",
+  "number": 48,
+  "period": 5,
+  "group": 12,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Cadmium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_048_cadmium/element_048_cadmium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_048_cadmium/element_048_cadmium.glb",
+  "spectral_img": null,
+  "summary": "Cadmium is a chemical element with symbol Cd and atomic number 48. This soft, bluish-white metal is chemically similar to the two other stable metals in group 12, zinc and mercury. Like zinc, it prefers oxidation state +2 in most of its compounds and like mercury it shows a low melting point compared to transition metals.",
+  "symbol": "Cd",
+  "xpos": 12,
+  "ypos": 5,
+  "wxpos": 26,
+  "wypos": 5,
+  "shells": [
+    2,
+    8,
+    18,
+    18,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10",
+  "electron_configuration_semantic": "[Kr] 4d10 5s2",
+  "electron_affinity": -68,
+  "electronegativity_pauling": 1.69,
+  "ionization_energies": [
+    867.8,
+    1631.4,
+    3616
+  ],
+  "cpk-hex": "ffd98f",
+  "image": {
+    "title": "48 Cd Cadmium",
+    "url": "https://images-of-elements.com/cadmium-4.jpg",
+    "attribution": "Chemical Elements A Virtual Museum under a Creative Commons Attribution 3.0 Unported License, source: https://images-of-elements.com/cadmium.php"
+  },
+  "block": "d"
+}

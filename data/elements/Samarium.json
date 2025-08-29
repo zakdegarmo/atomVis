@@ -1,0 +1,51 @@
+{
+  "name": "Samarium",
+  "appearance": "silvery white",
+  "atomic_mass": 150.362,
+  "boil": 2173,
+  "category": "lanthanide",
+  "density": 7.52,
+  "discovered_by": "Lecoq de Boisbaudran",
+  "melt": 1345,
+  "molar_heat": 29.54,
+  "named_by": null,
+  "number": 62,
+  "period": 6,
+  "group": 3,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Samarium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_062_samarium/element_062_samarium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_062_samarium/element_062_samarium.glb",
+  "spectral_img": null,
+  "summary": "Samarium is a chemical element with symbol Sm and atomic number 62. It is a moderately hard silvery metal that readily oxidizes in air. Being a typical member of the lanthanide series, samarium usually assumes the oxidation state +3.",
+  "symbol": "Sm",
+  "xpos": 8,
+  "ypos": 9,
+  "wxpos": 8,
+  "wypos": 6,
+  "shells": [
+    2,
+    8,
+    18,
+    24,
+    8,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f6",
+  "electron_configuration_semantic": "[Xe] 4f6 6s2",
+  "electron_affinity": 15.63,
+  "electronegativity_pauling": 1.17,
+  "ionization_energies": [
+    544.5,
+    1070,
+    2260,
+    3990
+  ],
+  "cpk-hex": "8fffc7",
+  "image": {
+    "title": "Ultrapure Sublimated Samarium, 2 grams. Original size in cm: 0.8 x 1.5",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/8/88/Samarium-2.jpg",
+    "attribution": "Unknown authorUnknown author, CC BY 1.0 <https://creativecommons.org/licenses/by/1.0>, via Wikimedia Commons, source: https://images-of-elements.com/samarium.php"
+  },
+  "block": "f"
+}

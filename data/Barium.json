@@ -1,0 +1,50 @@
+{
+  "name": "Barium",
+  "appearance": null,
+  "atomic_mass": 137.3277,
+  "boil": 2118,
+  "category": "alkaline earth metal",
+  "density": 3.51,
+  "discovered_by": "Carl Wilhelm Scheele",
+  "melt": 1000,
+  "molar_heat": 28.07,
+  "named_by": null,
+  "number": 56,
+  "period": 6,
+  "group": 2,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Barium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_056_barium/element_056_barium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_056_barium/element_056_barium.glb",
+  "spectral_img": null,
+  "summary": "Barium is a chemical element with symbol Ba and atomic number 56. It is the fifth element in Group 2, a soft silvery metallic alkaline earth metal. Because of its high chemical reactivity barium is never found in nature as a free element.",
+  "symbol": "Ba",
+  "xpos": 2,
+  "ypos": 6,
+  "wxpos": 2,
+  "wypos": 6,
+  "shells": [
+    2,
+    8,
+    18,
+    18,
+    8,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2",
+  "electron_configuration_semantic": "[Xe] 6s2",
+  "electron_affinity": 13.954,
+  "electronegativity_pauling": 0.89,
+  "ionization_energies": [
+    502.9,
+    965.2,
+    3600
+  ],
+  "cpk-hex": "00c900",
+  "image": {
+    "title": "1.5 Grams Barium with a Grey Oxide Layer under Argon. Original size in cm: 0.7 x 1",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Barium_%2856_Ba%29.jpg",
+    "attribution": "Hi-Res Images ofChemical Elements, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/barium.php"
+  },
+  "block": "s"
+}

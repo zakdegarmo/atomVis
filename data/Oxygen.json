@@ -1,0 +1,51 @@
+{
+  "name": "Oxygen",
+  "appearance": null,
+  "atomic_mass": 15.999,
+  "boil": 90.188,
+  "category": "diatomic nonmetal",
+  "density": 1.429,
+  "discovered_by": "Carl Wilhelm Scheele",
+  "melt": 54.36,
+  "molar_heat": null,
+  "named_by": "Antoine Lavoisier",
+  "number": 8,
+  "period": 2,
+  "group": 16,
+  "phase": "Gas",
+  "source": "https://en.wikipedia.org/wiki/Oxygen",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_008_oxygen/element_008_oxygen_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_008_oxygen/element_008_oxygen.glb",
+  "spectral_img": "https://en.wikipedia.org/wiki/File:Oxygen_spectre.jpg",
+  "summary": "Oxygen is a chemical element with symbol O and atomic number 8. It is a member of the chalcogen group on the periodic table and is a highly reactive nonmetal and oxidizing agent that readily forms compounds (notably oxides) with most elements. By mass, oxygen is the third-most abundant element in the universe, after hydrogen and helium.",
+  "symbol": "O",
+  "xpos": 16,
+  "ypos": 2,
+  "wxpos": 30,
+  "wypos": 2,
+  "shells": [
+    2,
+    6
+  ],
+  "electron_configuration": "1s2 2s2 2p4",
+  "electron_configuration_semantic": "[He] 2s2 2p4",
+  "electron_affinity": 140.976,
+  "electronegativity_pauling": 3.44,
+  "ionization_energies": [
+    1313.9,
+    3388.3,
+    5300.5,
+    7469.2,
+    10989.5,
+    13326.5,
+    71330,
+    84078
+  ],
+  "cpk-hex": "ff0d0d",
+  "image": {
+    "title": "Liquid Oxygen in a Beaker",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Liquid_oxygen_in_a_beaker_%28cropped_and_retouched%29.jpg",
+    "attribution": "Staff Sgt. Nika Glover, U.S. Air Force, Public domain, via Wikimedia Commons"
+  },
+  "block": "p"
+}

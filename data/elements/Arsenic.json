@@ -1,0 +1,51 @@
+{
+  "name": "Arsenic",
+  "appearance": "metallic grey",
+  "atomic_mass": 74.9215956,
+  "boil": null,
+  "category": "metalloid",
+  "density": 5.727,
+  "discovered_by": "Bronze Age",
+  "melt": null,
+  "molar_heat": 24.64,
+  "named_by": null,
+  "number": 33,
+  "period": 4,
+  "group": 15,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Arsenic",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_033_arsenic/element_033_arsenic_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_033_arsenic/element_033_arsenic.glb",
+  "spectral_img": null,
+  "summary": "Arsenic is a chemical element with symbol As and atomic number 33. Arsenic occurs in many minerals, usually in conjunction with sulfur and metals, and also as a pure elemental crystal. Arsenic is a metalloid.",
+  "symbol": "As",
+  "xpos": 15,
+  "ypos": 4,
+  "wxpos": 29,
+  "wypos": 4,
+  "shells": [
+    2,
+    8,
+    18,
+    5
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p3",
+  "electron_configuration_semantic": "[Ar] 3d10 4s2 4p3",
+  "electron_affinity": 77.65,
+  "electronegativity_pauling": 2.18,
+  "ionization_energies": [
+    947,
+    1798,
+    2735,
+    4837,
+    6043,
+    12310
+  ],
+  "cpk-hex": "bd80e3",
+  "image": {
+    "title": "Ultrapure Metallic Arsenic under Argon, 1 - 2 grams. Original size of each piece in cm: 0.5 x 1",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Arsenic_%2833_As%29.jpg",
+    "attribution": "Hi-Res Images ofChemical Elements, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/arsenic.php"
+  },
+  "block": "p"
+}

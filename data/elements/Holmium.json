@@ -1,0 +1,51 @@
+{
+  "name": "Holmium",
+  "appearance": "silvery white",
+  "atomic_mass": 164.930332,
+  "boil": 2873,
+  "category": "lanthanide",
+  "density": 8.79,
+  "discovered_by": "Marc Delafontaine",
+  "melt": 1734,
+  "molar_heat": 27.15,
+  "named_by": null,
+  "number": 67,
+  "period": 6,
+  "group": 3,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Holmium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_067_holmium/element_067_holmium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_067_holmium/element_067_holmium.glb",
+  "spectral_img": null,
+  "summary": "Holmium is a chemical element with symbol Ho and atomic number 67. Part of the lanthanide series, holmium is a rare earth element. Holmium was discovered by Swedish chemist Per Theodor Cleve.",
+  "symbol": "Ho",
+  "xpos": 13,
+  "ypos": 9,
+  "wxpos": 13,
+  "wypos": 6,
+  "shells": [
+    2,
+    8,
+    18,
+    29,
+    8,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f11",
+  "electron_configuration_semantic": "[Xe] 4f11 6s2",
+  "electron_affinity": 32.61,
+  "electronegativity_pauling": 1.23,
+  "ionization_energies": [
+    581,
+    1140,
+    2204,
+    4100
+  ],
+  "cpk-hex": "00ff9c",
+  "image": {
+    "title": "Ultrapure Holmium, 17 grams. Original size in cm: 1.5 x 2.5",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Holmium2.jpg",
+    "attribution": "Unknown authorUnknown author, CC BY 1.0 <https://creativecommons.org/licenses/by/1.0>, via Wikimedia Commons, source: https://images-of-elements.com/holmium.php"
+  },
+  "block": "f"
+}

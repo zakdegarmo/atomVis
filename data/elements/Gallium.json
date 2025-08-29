@@ -1,0 +1,49 @@
+{
+  "name": "Gallium",
+  "appearance": "silver-white",
+  "atomic_mass": 69.7231,
+  "boil": 2673,
+  "category": "post-transition metal",
+  "density": 5.91,
+  "discovered_by": "Lecoq de Boisbaudran",
+  "melt": 302.9146,
+  "molar_heat": 25.86,
+  "named_by": null,
+  "number": 31,
+  "period": 4,
+  "group": 13,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Gallium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_031_gallium/element_031_gallium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_031_gallium/element_031_gallium.glb",
+  "spectral_img": null,
+  "summary": "Gallium is a chemical element with symbol Ga and atomic number 31. Elemental gallium does not occur in free form in nature, but as the gallium(III) compounds that are in trace amounts in zinc ores and in bauxite. Gallium is a soft, silvery metal, and elemental gallium is a brittle solid at low temperatures, and melts at 29.76 °C (85.57 °F) (slightly above room temperature).",
+  "symbol": "Ga",
+  "xpos": 13,
+  "ypos": 4,
+  "wxpos": 27,
+  "wypos": 4,
+  "shells": [
+    2,
+    8,
+    18,
+    3
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p1",
+  "electron_configuration_semantic": "[Ar] 3d10 4s2 4p1",
+  "electron_affinity": 41,
+  "electronegativity_pauling": 1.81,
+  "ionization_energies": [
+    578.8,
+    1979.3,
+    2963,
+    6180
+  ],
+  "cpk-hex": "c28f8f",
+  "image": {
+    "title": "Solid gallium, fresh and after some time (2 months) at room temperature",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/b1/Solid_gallium_%28Ga%29.jpg",
+    "attribution": "Hi-Res Images ofChemical Elements, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/gallium.php"
+  },
+  "block": "p"
+}

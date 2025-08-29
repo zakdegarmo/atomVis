@@ -1,0 +1,48 @@
+{
+  "name": "Radon",
+  "appearance": "colorless gas, occasionally glows green or red in discharge tubes",
+  "atomic_mass": 222,
+  "boil": 211.5,
+  "category": "noble gas",
+  "density": 9.73,
+  "discovered_by": "Friedrich Ernst Dorn",
+  "melt": 202,
+  "molar_heat": null,
+  "named_by": null,
+  "number": 86,
+  "period": 6,
+  "group": 18,
+  "phase": "Gas",
+  "source": "https://en.wikipedia.org/wiki/Radon",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_086_radon/element_086_radon_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_086_radon/element_086_radon.glb",
+  "spectral_img": "https://en.wikipedia.org/wiki/File:Radon_spectrum.png",
+  "summary": "Radon is a chemical element with symbol Rn and atomic number 86. It is a radioactive, colorless, odorless, tasteless noble gas, occurring naturally as a decay product of radium. Its most stable isotope, 222Rn, has a half-life of 3.8 days.",
+  "symbol": "Rn",
+  "xpos": 18,
+  "ypos": 6,
+  "wxpos": 32,
+  "wypos": 6,
+  "shells": [
+    2,
+    8,
+    18,
+    32,
+    18,
+    8
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6",
+  "electron_configuration_semantic": "[Xe] 4f14 5d10 6s2 6p6",
+  "electron_affinity": -68,
+  "electronegativity_pauling": 2.2,
+  "ionization_energies": [
+    1037
+  ],
+  "cpk-hex": "428296",
+  "image": {
+    "title": "This is only an illustration, not radon itself. Radon is said to glow red in discharge tubes, although it practically is never used for this, due to its strong radioactivity.",
+    "url": "https://images-of-elements.com/radon.jpg",
+    "attribution": "Chemical ELements A Virtual Museum, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0> source: https://images-of-elements.com/radon.php"
+  },
+  "block": "p"
+}

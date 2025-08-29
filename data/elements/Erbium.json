@@ -1,0 +1,51 @@
+{
+  "name": "Erbium",
+  "appearance": "silvery white",
+  "atomic_mass": 167.2593,
+  "boil": 3141,
+  "category": "lanthanide",
+  "density": 9.066,
+  "discovered_by": "Carl Gustaf Mosander",
+  "melt": 1802,
+  "molar_heat": 28.12,
+  "named_by": null,
+  "number": 68,
+  "period": 6,
+  "group": 3,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Erbium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_068_erbium/element_068_erbium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_068_erbium/element_068_erbium.glb",
+  "spectral_img": null,
+  "summary": "Erbium is a chemical element in the lanthanide series, with symbol Er and atomic number 68. A silvery-white solid metal when artificially isolated, natural erbium is always found in chemical combination with other elements on Earth. As such, it is a rare earth element which is associated with several other rare elements in the mineral gadolinite from Ytterby in Sweden, where yttrium, ytterbium, and terbium were discovered.",
+  "symbol": "Er",
+  "xpos": 14,
+  "ypos": 9,
+  "wxpos": 14,
+  "wypos": 6,
+  "shells": [
+    2,
+    8,
+    18,
+    30,
+    8,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f12",
+  "electron_configuration_semantic": "[Xe] 4f12 6s2",
+  "electron_affinity": 30.1,
+  "electronegativity_pauling": 1.24,
+  "ionization_energies": [
+    589.3,
+    1150,
+    2194,
+    4120
+  ],
+  "cpk-hex": "00e675",
+  "image": {
+    "title": "9.5 Gramms Pure Erbium, 2 x 2 cm",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Erbium-2.jpg",
+    "attribution": "Jurii, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/erbium.php"
+  },
+  "block": "f"
+}

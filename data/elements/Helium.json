@@ -1,0 +1,44 @@
+{
+  "name": "Helium",
+  "appearance": "colorless gas, exhibiting a red-orange glow when placed in a high-voltage electric field",
+  "atomic_mass": 4.0026022,
+  "boil": 4.222,
+  "category": "noble gas",
+  "density": 0.1786,
+  "discovered_by": "Pierre Janssen",
+  "melt": 0.95,
+  "molar_heat": null,
+  "named_by": null,
+  "number": 2,
+  "period": 1,
+  "group": 18,
+  "phase": "Gas",
+  "source": "https://en.wikipedia.org/wiki/Helium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_002_helium/element_002_helium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_002_helium/element_002_helium.glb",
+  "spectral_img": "https://en.wikipedia.org/wiki/File:Helium_spectrum.jpg",
+  "summary": "Helium is a chemical element with symbol He and atomic number 2. It is a colorless, odorless, tasteless, non-toxic, inert, monatomic gas that heads the noble gas group in the periodic table. Its boiling and melting points are the lowest among all the elements.",
+  "symbol": "He",
+  "xpos": 18,
+  "ypos": 1,
+  "wxpos": 32,
+  "wypos": 1,
+  "shells": [
+    2
+  ],
+  "electron_configuration": "1s2",
+  "electron_configuration_semantic": "1s2",
+  "electron_affinity": -48,
+  "electronegativity_pauling": null,
+  "ionization_energies": [
+    2372.3,
+    5250.5
+  ],
+  "cpk-hex": "d9ffff",
+  "image": {
+    "title": "Vial of glowing ultrapure helium. Original size in cm: 1 x 5",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/00/Helium-glow.jpg",
+    "attribution": "Jurii, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/helium.php"
+  },
+  "block": "s"
+}

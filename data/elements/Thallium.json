@@ -1,0 +1,50 @@
+{
+  "name": "Thallium",
+  "appearance": "silvery white",
+  "atomic_mass": 204.38,
+  "boil": 1746,
+  "category": "post-transition metal",
+  "density": 11.85,
+  "discovered_by": "William Crookes",
+  "melt": 577,
+  "molar_heat": 26.32,
+  "named_by": null,
+  "number": 81,
+  "period": 6,
+  "group": 13,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Thallium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_081_thallium/element_081_thallium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_081_thallium/element_081_thallium.glb",
+  "spectral_img": null,
+  "summary": "Thallium is a chemical element with symbol Tl and atomic number 81. This soft gray post-transition metal is not found free in nature. When isolated, it resembles tin, but discolors when exposed to air.",
+  "symbol": "Tl",
+  "xpos": 13,
+  "ypos": 6,
+  "wxpos": 27,
+  "wypos": 6,
+  "shells": [
+    2,
+    8,
+    18,
+    32,
+    18,
+    3
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p1",
+  "electron_configuration_semantic": "[Xe] 4f14 5d10 6s2 6p1",
+  "electron_affinity": 36.4,
+  "electronegativity_pauling": 1.62,
+  "ionization_energies": [
+    589.4,
+    1971,
+    2878
+  ],
+  "cpk-hex": "a6544d",
+  "image": {
+    "title": "8 grams pure thallium under argon. Original size in cm: 0.7 x 1.5",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/55/Thallium_%2881_Tl%29.jpg",
+    "attribution": "Hi-Res Images ofChemical Elements, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/thallium.php"
+  },
+  "block": "p"
+}

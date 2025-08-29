@@ -1,6 +1,7 @@
+
 import React, { useRef, useEffect, memo } from 'react';
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls.js';
 import { DragControls } from 'three/examples/jsm/controls/DragControls.js';
 import type { Atom, Bond } from '../types';
 
@@ -13,7 +14,9 @@ interface AtomViewerProps {
   electronSpeed: number;
   setIsLoading: (isLoading: boolean) => void;
   onAtomRightClick: (atomIndex: number, x: number, y: number) => void;
-  quantumMode?: boolean;
+  visualizationMode: 'bohr' | 'quantum';
+  trailLength: number;
+  trailOpacity: number;
 }
 
 // --- Constants ---
@@ -24,6 +27,18 @@ const SHELL_SPACING = 1.8;
 const BOND_RADIUS = 0.15;
 const DOUBLE_BOND_SPACING = 0.35;
 const TRIPLE_BOND_SPACING = 0.35;
+const ORBITAL_OPACITY = 0.35;
+const ORBITAL_COLORS = {
+    s: 0x6495ED, // CornflowerBlue
+    p: 0xFFD700, // Gold
+    d: 0xBA55D3, // MediumOrchid
+    f: 0x3CB371, // MediumSeaGreen
+};
+
+// --- Constants for Quantum Trail Effect ---
+const QUANTUM_TRAIL_LENGTH = 15;
+const ELECTRON_TARGET_THRESHOLD = 0.5;
+const ELECTRON_MOVE_SPEED = 0.08;
 
 
 // --- Data Structures for Animation ---
@@ -31,21 +46,275 @@ interface AnimatedObject {
     nucleus: THREE.Mesh;
     shellPaths: THREE.Mesh[];
     electronPivots: THREE.Object3D[];
+    electrons: THREE.Mesh[];
+    electronTrails: THREE.Points | null;
 }
+
+interface QuantumAnimatedObject {
+    nucleus: THREE.Mesh;
+    orbitals: THREE.Group;
+    electronCloud: THREE.Points | null;
+}
+
+interface ElectronAnimationState {
+    orbitalKey: string;
+    currentPosition: THREE.Vector3;
+    targetPosition: THREE.Vector3;
+}
+
 
 // --- Helper Functions ---
 
 /**
- * Creates all the THREE.js objects for a single atom.
+ * Gets a random point within a sphere, distributed evenly by volume.
  */
-function createAtomModel(atom: Atom, position: THREE.Vector3, showQuantumCloud = false): AnimatedObject {
-    const animObject: AnimatedObject = {
+function getRandomPointInSphere(radius: number): THREE.Vector3 {
+    const u = Math.random();
+    const v = Math.random();
+    const theta = 2 * Math.PI * u;
+    const phi = Math.acos(2 * v - 1);
+    const r = radius * Math.cbrt(Math.random());
+    return new THREE.Vector3(
+        r * Math.sin(phi) * Math.cos(theta),
+        r * Math.sin(phi) * Math.sin(theta),
+        r * Math.cos(phi)
+    );
+}
+
+
+/**
+ * Gets a random point within a specified orbital type.
+ * Uses simplified shapes for performance and clarity.
+ */
+function getRandomPointInOrbital(orbitalKey: string, scale: number): THREE.Vector3 {
+    const principal = parseInt(orbitalKey.charAt(0), 10);
+    const type = orbitalKey.charAt(1) as 's' | 'p' | 'd' | 'f';
+    const baseRadius = 0.9 * principal * scale;
+
+    if (type === 's') {
+        return getRandomPointInSphere(baseRadius);
+    }
+    if (type === 'p') {
+        const lobeSize = baseRadius * 0.7;
+        const axisIndex = Math.floor(Math.random() * 3); // 0 for x, 1 for y, 2 for z
+        const direction = Math.random() < 0.5 ? 1 : -1;
+        
+        const pointInLobe = getRandomPointInSphere(lobeSize);
+        if (axisIndex === 0) pointInLobe.x += direction * baseRadius;
+        else if (axisIndex === 1) pointInLobe.y += direction * baseRadius;
+        else pointInLobe.z += direction * baseRadius;
+        return pointInLobe;
+    }
+    // For d and f, a simple spherical distribution is a good, performant approximation
+    if (type === 'd') {
+        return getRandomPointInSphere(baseRadius * 1.5);
+    }
+    if (type === 'f') {
+        return getRandomPointInSphere(baseRadius * 1.8);
+    }
+    return new THREE.Vector3(); // Fallback
+}
+
+
+/**
+ * Parses the semantic electron configuration string (e.g., "[Ar] 3d6 4s2")
+ * to get the valence orbitals and their electron counts.
+ */
+function parseElectronConfiguration(semanticConfig: string): Record<string, number> {
+    const config: Record<string, number> = {};
+    const justOrbitals = semanticConfig.replace(/\[[A-Za-z]+\]\s*/, '');
+    const orbitalRegex = /(\d+[spdf])(\d+)/g;
+    let match;
+    while ((match = orbitalRegex.exec(justOrbitals)) !== null) {
+        config[match[1]] = parseInt(match[2], 10);
+    }
+    return config;
+}
+
+/**
+ * Creates representative 3D shapes for atomic orbitals based on valence electron configuration.
+ */
+function createOrbitalShapes(config: Record<string, number>, scale: number): THREE.Group {
+    const orbitalGroup = new THREE.Group();
+    const orbitalMaterial = (color: number) => new THREE.MeshStandardMaterial({
+        color,
+        transparent: true,
+        opacity: ORBITAL_OPACITY,
+        emissive: color,
+        emissiveIntensity: 0.1,
+        side: THREE.DoubleSide,
+        roughness: 0.8,
+        metalness: 0.1,
+    });
+
+    for (const orbitalKey in config) {
+        if (!config[orbitalKey]) continue; // Skip if no electrons in this orbital
+
+        const principal = parseInt(orbitalKey.charAt(0), 10);
+        const type = orbitalKey.charAt(1) as 's' | 'p' | 'd' | 'f';
+        const baseRadius = 0.9 * principal * scale;
+
+        if (type === 's') {
+            const geometry = new THREE.SphereGeometry(baseRadius, 32, 32);
+            const mesh = new THREE.Mesh(geometry, orbitalMaterial(ORBITAL_COLORS.s));
+            orbitalGroup.add(mesh);
+        } else if (type === 'p') {
+            const lobeSize = baseRadius * 0.7;
+            const lobeGeometry = new THREE.SphereGeometry(lobeSize, 16, 16);
+            const material = orbitalMaterial(ORBITAL_COLORS.p);
+            
+            const createDumbbell = (axis: 'x' | 'y' | 'z') => {
+                const dumbbell = new THREE.Group();
+                const lobe1 = new THREE.Mesh(lobeGeometry, material.clone());
+                const lobe2 = lobe1.clone();
+                lobe1.position[axis] = baseRadius;
+                lobe2.position[axis] = -baseRadius;
+                dumbbell.add(lobe1, lobe2);
+                return dumbbell;
+            };
+
+            orbitalGroup.add(createDumbbell('x'), createDumbbell('y'), createDumbbell('z'));
+        } else if (type === 'd') {
+            const lobeSize = baseRadius * 0.5;
+            const lobeGeometry = new THREE.SphereGeometry(lobeSize, 16, 16);
+            const material = orbitalMaterial(ORBITAL_COLORS.d);
+
+            // d_z^2 shape
+            const dz2 = new THREE.Group();
+            const lobe1 = new THREE.Mesh(lobeGeometry, material.clone());
+            lobe1.position.z = baseRadius;
+            const lobe2 = lobe1.clone();
+            lobe2.position.z = -baseRadius;
+            const torus = new THREE.Mesh(
+                new THREE.TorusGeometry(baseRadius * 0.9, lobeSize * 0.4, 8, 50),
+                material.clone()
+            );
+            torus.rotation.x = Math.PI / 2;
+            dz2.add(lobe1, lobe2, torus);
+            dz2.rotation.y = 0.5; // Tilt slightly
+
+            // Representative clover shape for other d-orbitals
+            const clover = new THREE.Group();
+            const c_lobe1 = new THREE.Mesh(lobeGeometry, material.clone());
+            c_lobe1.position.set(baseRadius, baseRadius, 0);
+            const c_lobe2 = c_lobe1.clone();
+            c_lobe2.position.set(-baseRadius, -baseRadius, 0);
+            const c_lobe3 = c_lobe1.clone();
+            c_lobe3.position.set(-baseRadius, baseRadius, 0);
+            const c_lobe4 = c_lobe1.clone();
+            c_lobe4.position.set(baseRadius, -baseRadius, 0);
+            clover.add(c_lobe1, c_lobe2, c_lobe3, c_lobe4);
+            clover.rotation.z = 0.7; // Tilt slightly
+
+            orbitalGroup.add(dz2, clover);
+        } else if (type === 'f') {
+            // Simplified representation: a large sphere for the f-shell cloud
+            const geometry = new THREE.SphereGeometry(baseRadius * 1.8, 32, 32);
+            const fCloud = new THREE.Mesh(geometry, orbitalMaterial(ORBITAL_COLORS.f));
+            orbitalGroup.add(fCloud);
+        }
+    }
+    return orbitalGroup;
+}
+
+/**
+ * Creates the THREE.js objects for a single atom using the Quantum model (orbitals).
+ */
+function createQuantumAtomModel(atom: Atom, position: THREE.Vector3): QuantumAnimatedObject {
+    const atomScale = Math.max(0.5, Math.cbrt(atom.atomicMass) * NUCLEUS_SCALE_FACTOR);
+    const electronColor = new THREE.Color(`#${atom.cpkHex || '00ffff'}`);
+
+    // Nucleus
+    const nucleusColor = new THREE.Color(`#${atom.cpkHex || 'cccccc'}`);
+    const nucleus = new THREE.Mesh(
+        new THREE.SphereGeometry(1, 32, 32),
+        new THREE.MeshStandardMaterial({
+            color: nucleusColor,
+            emissive: nucleusColor,
+            emissiveIntensity: 0.2,
+            metalness: 0.1,
+            roughness: 0.7,
+        })
+    );
+    nucleus.scale.setScalar(atomScale);
+    nucleus.position.copy(position);
+
+    // Orbitals
+    const valenceConfig = parseElectronConfiguration(atom.electronConfigurationSemantic);
+    const orbitals = createOrbitalShapes(valenceConfig, atomScale);
+
+    // Electron Cloud with Trails
+    let electronCloud: THREE.Points | null = null;
+    const valenceElectronsList: { orbitalKey: string }[] = [];
+    for (const orbitalKey in valenceConfig) {
+        for(let i=0; i < valenceConfig[orbitalKey]; i++) {
+            valenceElectronsList.push({ orbitalKey });
+        }
+    }
+
+    if (valenceElectronsList.length > 0) {
+        const totalPoints = valenceElectronsList.length * QUANTUM_TRAIL_LENGTH;
+        const pointsGeometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(totalPoints * 3);
+        const colors = new Float32Array(totalPoints * 3);
+        const electronAnimations: ElectronAnimationState[] = [];
+
+        valenceElectronsList.forEach(({ orbitalKey }) => {
+            const startPos = getRandomPointInOrbital(orbitalKey, atomScale);
+            electronAnimations.push({
+                orbitalKey,
+                currentPosition: startPos.clone(),
+                targetPosition: getRandomPointInOrbital(orbitalKey, atomScale),
+            });
+        });
+
+        electronAnimations.forEach((anim, electronIndex) => {
+            for (let i = 0; i < QUANTUM_TRAIL_LENGTH; i++) {
+                const index = (electronIndex * QUANTUM_TRAIL_LENGTH + i) * 3;
+                positions[index] = anim.currentPosition.x;
+                positions[index + 1] = anim.currentPosition.y;
+                positions[index + 2] = anim.currentPosition.z;
+
+                const brightness = 1.0 - (i / QUANTUM_TRAIL_LENGTH);
+                colors[index] = electronColor.r * brightness;
+                colors[index + 1] = electronColor.g * brightness;
+                colors[index + 2] = electronColor.b * brightness;
+            }
+        });
+
+        pointsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        pointsGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+        pointsGeometry.userData.electronAnimations = electronAnimations;
+        
+        const pointsMaterial = new THREE.PointsMaterial({
+            color: 0xffffff,
+            size: ELECTRON_SIZE * 2.0,
+            transparent: true,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+            vertexColors: true
+        });
+        electronCloud = new THREE.Points(pointsGeometry, pointsMaterial);
+    }
+
+    return { nucleus, orbitals, electronCloud };
+}
+
+
+/**
+ * Creates all the THREE.js objects for a single atom using the Bohr model.
+ */
+function createAtomModel(atom: Atom, position: THREE.Vector3, trailLength: number, trailOpacity: number): AnimatedObject {
+    const animObject: Omit<AnimatedObject, 'electrons' | 'electronTrails'> = {
         nucleus: new THREE.Mesh(),
         shellPaths: [],
         electronPivots: [],
     };
+    const electrons: THREE.Mesh[] = [];
+    let electronTrails: THREE.Points | null = null;
 
     const atomScale = Math.max(0.5, Math.cbrt(atom.atomicMass) * NUCLEUS_SCALE_FACTOR);
+    const electronColor = new THREE.Color(`#${atom.cpkHex || '00ffff'}`);
 
     // Nucleus
     const nucleusColor = new THREE.Color(`#${atom.cpkHex || 'cccccc'}`);
@@ -62,50 +331,81 @@ function createAtomModel(atom: Atom, position: THREE.Vector3, showQuantumCloud =
     animObject.nucleus.scale.setScalar(atomScale);
     animObject.nucleus.position.copy(position);
 
+    // Shared electron resources
+    const electronMaterial = new THREE.MeshStandardMaterial({ color: electronColor, emissive: electronColor, emissiveIntensity: 0.6 });
+    const electronGeometry = new THREE.SphereGeometry(ELECTRON_SIZE, 16, 16);
+
     // Shells and Electrons
     atom.shells.forEach((numElectrons, shellIndex) => {
-        // Q: shell capacity (2n^2 for nth shell, or max electrons in any shell for fallback)
-        const n = shellIndex + 1;
-        const shellCapacity = 2 * n * n;
         const shellRadius = (SHELL_BASE_RADIUS + shellIndex * SHELL_SPACING) * atomScale;
 
-        // --- Cloud or shell path ---
-        if (showQuantumCloud) {
-            const cloud = createQuantumCloudMesh(atom, shellIndex, atomScale, numElectrons, shellCapacity);
-            cloud.position.copy(position);
-            animObject.shellPaths.push(cloud);
-        } else {
-            const shellPath = new THREE.Mesh(
-                new THREE.TorusGeometry(shellRadius, 0.02 * atomScale, 16, 100),
-                new THREE.MeshBasicMaterial({ color: 0x4a5568, transparent: true, opacity: 0.3 })
-            );
-            shellPath.rotation.x = Math.PI / 2;
-            animObject.shellPaths.push(shellPath);
-        }
+        const shellPath = new THREE.Mesh(
+            new THREE.TorusGeometry(shellRadius, 0.02 * atomScale, 16, 100),
+            new THREE.MeshBasicMaterial({ color: 0x4a5568, transparent: true, opacity: 0.3 })
+        );
+        shellPath.rotation.x = Math.PI / 2;
+        animObject.shellPaths.push(shellPath);
 
-        // --- Electron placement using n-gon/torus knot logic ---
-        const electronMaterial = new THREE.MeshStandardMaterial({ color: 0x00ffff, emissive: 0x00ffff, emissiveIntensity: 0.6 });
-        const electronGeometry = new THREE.SphereGeometry(ELECTRON_SIZE, 16, 16);
-        // Torus knot parametric placement: P = numElectrons, Q = shellCapacity
-        const P = numElectrons;
-        const Q = shellCapacity > 0 ? shellCapacity : 1;
-        const torusRadius = shellRadius;
-        const tubeRadius = 0.5 * atomScale;
+        const points = getSpherePoints(numElectrons, shellRadius);
+
         for (let i = 0; i < numElectrons; i++) {
-            const t = (i / numElectrons) * Math.PI * 2;
-            // Torus knot parametric equations
-            const x = (torusRadius + tubeRadius * Math.cos(Q * t)) * Math.cos(P * t);
-            const y = (torusRadius + tubeRadius * Math.cos(Q * t)) * Math.sin(P * t);
-            const z = tubeRadius * Math.sin(Q * t);
             const pivot = new THREE.Object3D();
             const electron = new THREE.Mesh(electronGeometry.clone(), electronMaterial.clone());
-            electron.position.set(x, y, z);
+            electron.position.copy(points[i]);
             pivot.add(electron);
             animObject.electronPivots.push(pivot);
+            electrons.push(electron);
         }
     });
 
-    return animObject;
+    // Electron Trails
+    if (electrons.length > 0 && trailLength > 0) {
+        const totalPoints = electrons.length * trailLength;
+        const trailGeometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(totalPoints * 3);
+        const colors = new Float32Array(totalPoints * 3);
+
+        const initialPos = new THREE.Vector3();
+
+        electrons.forEach((electron, electronIndex) => {
+            // Need to get initial world position.
+            // Temporarily add pivot to nucleus to calculate it.
+            animObject.nucleus.add(animObject.electronPivots[electronIndex]);
+            electron.getWorldPosition(initialPos);
+            animObject.nucleus.remove(animObject.electronPivots[electronIndex]);
+            
+            for (let i = 0; i < trailLength; i++) {
+                const index = (electronIndex * trailLength + i) * 3;
+                positions[index] = initialPos.x;
+                positions[index + 1] = initialPos.y;
+                positions[index + 2] = initialPos.z;
+
+                const brightness = 1.0 - (i / trailLength);
+                colors[index] = electronColor.r * brightness;
+                colors[index + 1] = electronColor.g * brightness;
+                colors[index + 2] = electronColor.b * brightness;
+            }
+        });
+
+        trailGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        trailGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+        
+        const trailMaterial = new THREE.PointsMaterial({
+            color: 0xffffff,
+            size: ELECTRON_SIZE * 2.5,
+            transparent: true,
+            opacity: trailOpacity,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+            vertexColors: true
+        });
+        electronTrails = new THREE.Points(trailGeometry, trailMaterial);
+    }
+    
+    // Dispose shared geometries after use
+    electronGeometry.dispose();
+
+    return { ...animObject, electrons, electronTrails };
 }
 
 /**
@@ -131,102 +431,49 @@ function getSpherePoints(samples: number, radius: number): THREE.Vector3[] {
 
 /**
  * Completely clears all atoms and bonds from the scene and disposes of their resources.
- * This more robust "full cleanup" approach iterates through all children of the modelGroup,
- * ensuring no orphaned WebGL objects are left behind, which can prevent rendering glitches.
  */
-function cleanupScene(
-    modelGroup: THREE.Group,
-    animatedObjects: React.MutableRefObject<AnimatedObject[]>,
-    bonds: React.MutableRefObject<THREE.Group[]>
-) {
+function cleanupScene(modelGroup: THREE.Group) {
     while (modelGroup.children.length > 0) {
         const object = modelGroup.children[0];
-        
-        // Traverse the object and its descendants to dispose of materials and geometries
         object.traverse(child => {
-            if (child instanceof THREE.Mesh) {
-                if (child.geometry) {
-                    child.geometry.dispose();
-                }
-                if (child.material) {
-                    // Material can be an array or a single material
-                    if (Array.isArray(child.material)) {
-                        child.material.forEach(material => material.dispose());
-                    } else {
-                        child.material.dispose();
-                    }
+            if (child instanceof THREE.Mesh || child instanceof THREE.Points) {
+                child.geometry?.dispose();
+                if (Array.isArray(child.material)) {
+                    child.material.forEach(material => material.dispose());
+                } else {
+                    child.material?.dispose();
                 }
             }
         });
-        
-        // Remove the object from the group
         modelGroup.remove(object);
     }
-    
-    // Also reset the state-tracking refs
-    animatedObjects.current = [];
-    bonds.current = [];
 }
 
 
-// --- Quantum Cloud Helper ---
-function createQuantumCloudMesh(atom: Atom, shellIndex: number, atomScale: number, numElectrons?: number, shellCapacity?: number) {
-    // Use n-gon/torus knot logic for cloud: P = numElectrons, Q = shellCapacity
-    const P = numElectrons || 3;
-    const Q = shellCapacity || 4;
-    const radius = (3.5 + shellIndex * 2.2) * atomScale;
-    const tube = 0.35 * atomScale;
-    const color = new THREE.Color(0xff9900); // neon orange
-    const geometry = new THREE.TorusKnotGeometry(radius, tube, 128, 16, P, Q);
-    const material = new THREE.MeshStandardMaterial({
-        color,
-        transparent: true,
-        opacity: 0.13, // more transparent
-        emissive: color,
-        emissiveIntensity: 0.7,
-        metalness: 0.1,
-        roughness: 0.2,
-        depthWrite: false,
-    });
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.renderOrder = 100;
-    // Animate rotation along n-gon axis (P)
-    mesh.userData.animateQuantumCloud = (delta: number) => {
-        mesh.rotation.y += delta * 0.25 * P;
-        mesh.rotation.x += delta * 0.12 * Q;
-    };
-    return mesh;
-}
-
-const AtomViewer: React.FC<AtomViewerProps> = ({ atoms, atomPositions, onAtomPositionChange, bondingPairs, bondingProgress, electronSpeed, setIsLoading, onAtomRightClick, quantumMode = false }) => {
-    console.log('QuantumMode prop in AtomViewer:', quantumMode);
+const AtomViewer: React.FC<AtomViewerProps> = ({ atoms, atomPositions, onAtomPositionChange, bondingPairs, bondingProgress, electronSpeed, setIsLoading, onAtomRightClick, visualizationMode, trailLength, trailOpacity }) => {
     const mountRef = useRef<HTMLDivElement>(null);
 
     // Core Three.js refs
     const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
     const sceneRef = useRef<THREE.Scene | null>(null);
     const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
-    const controlsRef = useRef<OrbitControls | null>(null);
+    const controlsRef = useRef<TrackballControls | null>(null);
     const modelGroupRef = useRef<THREE.Group | null>(null);
     const dragControlsRef = useRef<DragControls | null>(null);
     const raycasterRef = useRef<THREE.Raycaster | null>(null);
     const mouseRef = useRef<THREE.Vector2 | null>(null);
-
+    
     // Refs for animation state
     const animatedObjectsRef = useRef<AnimatedObject[]>([]);
+    const quantumObjectsRef = useRef<QuantumAnimatedObject[]>([]);
     const bondsRef = useRef<THREE.Group[]>([]);
     const animationStateRef = useRef({ speed: electronSpeed, bondingProgress: bondingProgress });
-    // Store current atom positions for tweening
-    const currentAtomPositionsRef = useRef<THREE.Vector3[]>([]);
-
-    // --- Smooth quantum cloud morphing ---
-    const cloudMorphProgressRef = useRef<number>(bondingProgress);
 
     // Update animation state when props change
     useEffect(() => {
-        animationStateRef.current.speed = electronSpeed;
+        animationStateRef.current.speed = visualizationMode === 'bohr' ? electronSpeed : 0;
         animationStateRef.current.bondingProgress = bondingProgress;
-    }, [electronSpeed, bondingProgress]);
+    }, [electronSpeed, bondingProgress, visualizationMode]);
 
 
     // Initialize Three.js scene, camera, renderer, and animation loop
@@ -251,8 +498,10 @@ const AtomViewer: React.FC<AtomViewerProps> = ({ atoms, atomPositions, onAtomPos
         sceneRef.current.add(modelGroupRef.current);
 
         // --- Controls ---
-        controlsRef.current = new OrbitControls(cameraRef.current, rendererRef.current.domElement);
-        controlsRef.current.enableDamping = true;
+        controlsRef.current = new TrackballControls(cameraRef.current, rendererRef.current.domElement);
+        controlsRef.current.rotateSpeed = 3.0;
+        controlsRef.current.zoomSpeed = 1.2;
+        controlsRef.current.panSpeed = 0.8;
         controlsRef.current.minDistance = 5;
         controlsRef.current.maxDistance = 500;
 
@@ -277,7 +526,8 @@ const AtomViewer: React.FC<AtomViewerProps> = ({ atoms, atomPositions, onAtomPos
 
             raycasterRef.current.setFromCamera(mouseRef.current, cameraRef.current);
             
-            const nuclei = animatedObjectsRef.current.map(obj => obj.nucleus);
+            const nuclei = animatedObjectsRef.current.map(obj => obj.nucleus)
+              .concat(quantumObjectsRef.current.map(obj => obj.nucleus));
             const intersects = raycasterRef.current.intersectObjects(nuclei);
             
             if (intersects.length > 0) {
@@ -293,109 +543,133 @@ const AtomViewer: React.FC<AtomViewerProps> = ({ atoms, atomPositions, onAtomPos
 
         // --- Animation Loop ---
         const clock = new THREE.Clock();
-        const moleculeCenter = new THREE.Vector3();
-        const orbitalCenter = new THREE.Vector3();
         const bondUpVector = new THREE.Vector3(0, 1, 0);
         const bondDirection = new THREE.Vector3();
+        const tempWorldPos = new THREE.Vector3();
+
 
         const animate = () => {
             requestAnimationFrame(animate);
             if (!rendererRef.current || !sceneRef.current || !cameraRef.current || !controlsRef.current) return;
-
+            
             const delta = clock.getDelta();
             const { speed, bondingProgress } = animationStateRef.current;
-            const animatedObjects = animatedObjectsRef.current;
             const bonds = bondsRef.current;
+            const animatedObjects = animatedObjectsRef.current;
+            const quantumObjects = quantumObjectsRef.current;
 
-            // --- Smoothly interpolate cloud morph progress toward bondingProgress ---
-            cloudMorphProgressRef.current += (bondingProgress - cloudMorphProgressRef.current) * Math.min(1, delta * 4);
+            const nuclei = visualizationMode === 'bohr' 
+                ? animatedObjects.map(o => o.nucleus)
+                : quantumObjects.map(o => o.nucleus);
 
-            if (animatedObjects.length === 0) {
+            if (nuclei.length === 0) {
                 controlsRef.current.update();
                 rendererRef.current.render(sceneRef.current, cameraRef.current);
                 return;
-            }
+            };
 
-            moleculeCenter.set(0, 0, 0);
-            if (animatedObjects.length > 0) {
-                for (const obj of animatedObjects) {
-                    moleculeCenter.add(obj.nucleus.position);
-                }
-                moleculeCenter.divideScalar(animatedObjects.length);
-            }
-
-            animatedObjects.forEach((obj, index) => {
-                // --- Quantum cloud deformation: lean toward bonded atoms ---
-                let cloudOffset = new THREE.Vector3(0, 0, 0);
-                if (bondingPairs && bondingPairs.length > 0) {
-                    bondingPairs.forEach(bond => {
-                        if (bond.pair.includes(index)) {
-                            const otherIdx = bond.pair[0] === index ? bond.pair[1] : bond.pair[0];
-                            if (animatedObjects[otherIdx]) {
-                                const dir = new THREE.Vector3().subVectors(animatedObjects[otherIdx].nucleus.position, obj.nucleus.position);
-                                const dist = dir.length();
-                                if (dist > 0.01) {
-                                    dir.normalize();
-                                    // Offset cloud toward bonded atom, scaled by proximity and cloudMorphProgress
-                                    cloudOffset.add(dir.multiplyScalar(0.5 * cloudMorphProgressRef.current * Math.max(0, 1 - dist / 15)));
-                                }
-                            }
-                        }
+            if(visualizationMode === 'bohr') {
+                 animatedObjects.forEach((obj, atomIndex) => {
+                    obj.shellPaths.forEach(shell => {
+                        shell.position.copy(obj.nucleus.position);
+                        (shell.material as THREE.MeshBasicMaterial).opacity = 0.3 * (1 - bondingProgress);
                     });
-                }
-                obj.shellPaths.forEach(shell => {
-                    // Morph/merge quantum cloud toward bonded atom(s) as bond forms, with smooth interpolation
-                    shell.position.copy(obj.nucleus.position.clone().add(cloudOffset));
-                    if (shell.userData && typeof shell.userData.animateQuantumCloud === 'function') {
-                        shell.userData.animateQuantumCloud(delta);
-                        if (bondingPairs && bondingPairs.length > 0 && shell.geometry instanceof THREE.TorusKnotGeometry) {
-                            bondingPairs.forEach(bond => {
-                                if (bond.pair.includes(index)) {
-                                    const otherIdx = bond.pair[0] === index ? bond.pair[1] : bond.pair[0];
-                                    if (animatedObjects[otherIdx]) {
-                                        const midpoint = new THREE.Vector3().addVectors(obj.nucleus.position, animatedObjects[otherIdx].nucleus.position).multiplyScalar(0.5);
-                                        const morphAmount = cloudMorphProgressRef.current * 0.8;
-                                        const posAttr = shell.geometry.attributes.position;
-                                        // Store original positions for smooth morphing
-                                        if (!shell.userData.origPositions) {
-                                            shell.userData.origPositions = [];
-                                            for (let i = 0; i < posAttr.count; i++) {
-                                                const orig = new THREE.Vector3().fromBufferAttribute(posAttr, i);
-                                                shell.userData.origPositions.push(orig.clone());
-                                            }
-                                        }
-                                        for (let i = 0; i < posAttr.count; i++) {
-                                            const orig = shell.userData.origPositions[i];
-                                            const worldOrig = orig.clone().add(obj.nucleus.position);
-                                            const target = worldOrig.clone().lerp(midpoint, morphAmount).sub(shell.position);
-                                            // Smoothly interpolate current vertex toward target
-                                            const current = new THREE.Vector3().fromBufferAttribute(posAttr, i);
-                                            current.lerp(target, Math.min(1, delta * 8)); // Higher factor = faster, but still smooth
-                                            posAttr.setXYZ(i, current.x, current.y, current.z);
-                                        }
-                                        posAttr.needsUpdate = true;
-                                    }
-                                }
-                            });
+                    
+                    let targetPosition = obj.nucleus.position.clone();
+                    if (bondingProgress > 0) {
+                        const bondPartnersPositions: THREE.Vector3[] = [];
+                        bondingPairs.forEach(bond => {
+                            let partnerIndex = -1;
+                            if (bond.pair[0] === atomIndex) partnerIndex = bond.pair[1];
+                            else if (bond.pair[1] === atomIndex) partnerIndex = bond.pair[0];
+
+                            if (partnerIndex !== -1 && animatedObjects[partnerIndex]) {
+                                bondPartnersPositions.push(animatedObjects[partnerIndex].nucleus.position);
+                            }
+                        });
+
+                        if (bondPartnersPositions.length > 0) {
+                            const bondCentroid = new THREE.Vector3();
+                            bondPartnersPositions.forEach(pos => bondCentroid.add(pos));
+                            bondCentroid.divideScalar(bondPartnersPositions.length);
+                            targetPosition = bondCentroid;
                         }
-                        (shell.material as THREE.MeshStandardMaterial).opacity = 0.13;
-                    } else {
-                        (shell.material as THREE.MeshBasicMaterial).opacity = 0.3;
+                    }
+                    
+                    obj.electronPivots.forEach((pivot, i) => {
+                        const orbitalCenter = new THREE.Vector3();
+                        orbitalCenter.lerpVectors(obj.nucleus.position, targetPosition, bondingProgress);
+                        pivot.position.copy(orbitalCenter);
+        
+                        const speedFactor = speed * 21.85/2.5;
+                        const rotationX = delta * speedFactor * (0.5 + (i % 5) * 0.1);
+                        const rotationY = delta * speedFactor * (0.5 + (i % 7) * 0.1);
+                        
+                        pivot.rotateY(rotationY);
+                        pivot.rotateX(rotationX);
+                    });
+                });
+                // Update electron trails after pivots have been rotated
+                animatedObjects.forEach(obj => {
+                    if (!obj.electronTrails || obj.electrons.length === 0) return;
+                    const positions = obj.electronTrails.geometry.attributes.position as THREE.BufferAttribute;
+                    const trailLen = positions.count / obj.electrons.length;
+                    
+                    obj.electrons.forEach((electron, electronIndex) => {
+                        electron.getWorldPosition(tempWorldPos);
+                        const trailStartIndex = electronIndex * trailLen;
+                        
+                        // Shift tail points
+                        for (let i = trailLen - 1; i > 0; i--) {
+                            const currentPointIndex = trailStartIndex + i;
+                            const prevPointIndex = trailStartIndex + i - 1;
+                             positions.setXYZ(
+                                currentPointIndex, 
+                                positions.getX(prevPointIndex), 
+                                positions.getY(prevPointIndex), 
+                                positions.getZ(prevPointIndex)
+                            );
+                        }
+                        // Update head of the trail
+                        positions.setXYZ(trailStartIndex, tempWorldPos.x, tempWorldPos.y, tempWorldPos.z);
+                    });
+                    positions.needsUpdate = true;
+                });
+
+            } else { // Quantum mode
+                quantumObjects.forEach(obj => {
+                    obj.orbitals.position.copy(obj.nucleus.position);
+                    if (obj.electronCloud) {
+                        obj.electronCloud.position.copy(obj.nucleus.position);
+                        
+                        const geometry = obj.electronCloud.geometry;
+                        const positions = geometry.attributes.position as THREE.BufferAttribute;
+                        const animations = geometry.userData.electronAnimations as ElectronAnimationState[];
+                        const atomScale = obj.nucleus.scale.x;
+
+                        animations.forEach((anim, electronIndex) => {
+                             if (anim.currentPosition.distanceTo(anim.targetPosition) < ELECTRON_TARGET_THRESHOLD) {
+                                anim.targetPosition.copy(getRandomPointInOrbital(anim.orbitalKey, atomScale));
+                            }
+                            anim.currentPosition.lerp(anim.targetPosition, ELECTRON_MOVE_SPEED);
+
+                            const trailStartIndex = electronIndex * QUANTUM_TRAIL_LENGTH;
+                            // Shift trail positions
+                            for (let i = QUANTUM_TRAIL_LENGTH - 1; i > 0; i--) {
+                                const oldIndex = trailStartIndex + i - 1;
+                                const newIndex = trailStartIndex + i;
+                                positions.setXYZ(newIndex, positions.getX(oldIndex), positions.getY(oldIndex), positions.getZ(oldIndex));
+                            }
+                            // Update head of the trail
+                            positions.setXYZ(trailStartIndex, anim.currentPosition.x, anim.currentPosition.y, anim.currentPosition.z);
+                        });
+                        
+                        positions.needsUpdate = true;
                     }
                 });
-                obj.electronPivots.forEach((pivot, i) => {
-                    orbitalCenter.lerpVectors(obj.nucleus.position, moleculeCenter, cloudMorphProgressRef.current);
-                    pivot.position.copy(orbitalCenter);
+            }
 
-                    const speedFactor = speed * 1.5;
-                    const rotationX = delta * speedFactor * (0.5 + (i % 5) * 0.1);
-                    const rotationY = delta * speedFactor * (0.5 + (i % 7) * 0.1);
-                    pivot.rotation.x += rotationX;
-                    pivot.rotation.y += rotationY;
-                });
-            });
-
-            if (bonds.length > 0 && animatedObjects.length > 1) {
+            if (bonds.length > 0 && nuclei.length > 1) {
                 bonds.forEach((bondGroup) => {
                      bondGroup.children.forEach(mesh => {
                         if (mesh instanceof THREE.Mesh && mesh.material instanceof THREE.MeshStandardMaterial) {
@@ -404,9 +678,9 @@ const AtomViewer: React.FC<AtomViewerProps> = ({ atoms, atomPositions, onAtomPos
                     });
 
                     const { pair } = bondGroup.userData;
-                    if (!pair || animatedObjects[pair[0]] === undefined || animatedObjects[pair[1]] === undefined) return;
-                    const posA = animatedObjects[pair[0]].nucleus.position;
-                    const posB = animatedObjects[pair[1]].nucleus.position;
+                    if (!pair || nuclei[pair[0]] === undefined || nuclei[pair[1]] === undefined) return;
+                    const posA = nuclei[pair[0]].position;
+                    const posB = nuclei[pair[1]].position;
                     const distance = posA.distanceTo(posB);
 
                     bondGroup.position.copy(posA).lerp(posB, 0.5);
@@ -423,12 +697,13 @@ const AtomViewer: React.FC<AtomViewerProps> = ({ atoms, atomPositions, onAtomPos
         animate();
 
         const handleResize = () => {
-            if (!mountRef.current || !rendererRef.current || !cameraRef.current) return;
+            if (!mountRef.current || !rendererRef.current || !cameraRef.current || !controlsRef.current) return;
             const width = mountRef.current.clientWidth;
             const height = mountRef.current.clientHeight;
             cameraRef.current.aspect = width / height;
             cameraRef.current.updateProjectionMatrix();
             rendererRef.current.setSize(width, height);
+            controlsRef.current.handleResize();
         };
         window.addEventListener('resize', handleResize);
 
@@ -439,148 +714,151 @@ const AtomViewer: React.FC<AtomViewerProps> = ({ atoms, atomPositions, onAtomPos
                 currentMount.removeChild(rendererRef.current.domElement);
             }
             if (modelGroupRef.current) {
-                cleanupScene(modelGroupRef.current, animatedObjectsRef, bondsRef);
+                cleanupScene(modelGroupRef.current);
             }
+            controlsRef.current?.dispose();
             rendererRef.current?.dispose();
         };
-    }, [onAtomRightClick]);
+    }, [onAtomRightClick, bondingPairs]);
 
-    // Only rebuild the scene if the number of atoms or bonds changes, not on every position update
+    // Rebuild the scene whenever atoms, bonds, trail length, or the visualization mode change.
     useEffect(() => {
         if (!sceneRef.current || !modelGroupRef.current || !cameraRef.current || !rendererRef.current) {
             if (atoms.length === 0) setIsLoading(false);
             return;
         }
+        
         setIsLoading(true);
+
         setTimeout(() => {
             const modelGroup = modelGroupRef.current!;
-            cleanupScene(modelGroup, animatedObjectsRef, bondsRef);
+            
+            cleanupScene(modelGroup);
+            animatedObjectsRef.current = [];
+            quantumObjectsRef.current = [];
+            bondsRef.current = [];
+
             const nucleiForDrag: THREE.Mesh[] = [];
-            atoms.forEach((atom, index) => {
-                // Start at current or target position
-                const position = (currentAtomPositionsRef.current[index] || atomPositions[index] || new THREE.Vector3()).clone();
-                const newObject = createAtomModel(atom, position, quantumMode);
-                newObject.nucleus.userData = { symbol: atom.symbol, atomIndex: index };
-                modelGroup.add(newObject.nucleus);
-                newObject.shellPaths.forEach(p => modelGroup.add(p));
-                newObject.electronPivots.forEach(p => modelGroup.add(p));
-                animatedObjectsRef.current.push(newObject);
-                nucleiForDrag.push(newObject.nucleus);
-            });
-            // Bonds (same as before)
-            if (bondingPairs.length > 0 && atoms.length > 1) {
-                // Dynamic bond visuals: color/thickness by type, opacity by proximity
-                const bondTypeProps = {
-                    single:   { color: 0xaaaaaa, thickness: BOND_RADIUS, glow: 0 },
-                    double:   { color: 0x4fd1c5, thickness: BOND_RADIUS * 1.3, glow: 0.2 },
-                    triple:   { color: 0xf6ad55, thickness: BOND_RADIUS * 1.6, glow: 0.3 },
-                    ionic:    { color: 0x4299e1, thickness: BOND_RADIUS * 1.1, glow: 0.5 },
-                    covalent: { color: 0x38a169, thickness: BOND_RADIUS * 1.2, glow: 0.2 },
-                    polar:    { color: 0xed64a6, thickness: BOND_RADIUS * 1.2, glow: 0.4 },
-                    nonpolar: { color: 0xf7fafc, thickness: BOND_RADIUS, glow: 0.1 },
-                };
-                bondingPairs.forEach(bondInfo => {
-                    const { pair, type } = bondInfo;
-                    if (pair.length !== 2) return;
-                    const [indexA, indexB] = pair;
-                    if (indexA < 0 || indexA >= atoms.length || indexB < 0 || indexB >= atoms.length) return;
-                    const atomA = animatedObjectsRef.current[indexA];
-                    const atomB = animatedObjectsRef.current[indexB];
-                    if (!atomA || !atomB) return;
-                    // Determine bond type props
-                    const t = (typeof type === 'string' && bondTypeProps[type]) ? type : (type === 2 ? 'double' : type === 3 ? 'triple' : 'single');
-                    const props = bondTypeProps[t] || bondTypeProps.single;
-                    // Opacity/strength by proximity
-                    const posA = atomA.nucleus.position;
-                    const posB = atomB.nucleus.position;
-                    const maxDist = 15; // baseRadius
-                    const minDist = 2.5; // minRadius
-                    const dist = posA.distanceTo(posB);
-                    const bondStrength = Math.max(0, Math.min(1, 1 - (dist - minDist) / (maxDist - minDist)));
-                    const bondColor = new THREE.Color(props.color).lerp(new THREE.Color(0x222222), 1 - bondStrength);
-                    const bondMaterial = new THREE.MeshStandardMaterial({
-                        color: bondColor,
-                        metalness: 0.4,
-                        roughness: 0.3,
-                        transparent: true,
-                        opacity: 0.15 + 0.85 * bondStrength,
-                        emissive: bondColor,
-                        emissiveIntensity: props.glow * bondStrength,
-                    });
-                    const bondGeometry = new THREE.CylinderGeometry(props.thickness, props.thickness, 1, 16);
-                    const bondGroup = new THREE.Group();
-                    bondGroup.userData = { pair, type };
-                    if (t === 'single') {
-                        const bondMesh = new THREE.Mesh(bondGeometry, bondMaterial);
-                        bondGroup.add(bondMesh);
-                    } else if (t === 'double') {
-                        const bondMesh1 = new THREE.Mesh(bondGeometry, bondMaterial);
-                        const bondMesh2 = new THREE.Mesh(bondGeometry, bondMaterial);
-                        bondMesh1.position.set(0, DOUBLE_BOND_SPACING / 2, 0);
-                        bondMesh2.position.set(0, -DOUBLE_BOND_SPACING / 2, 0);
-                        bondGroup.add(bondMesh1, bondMesh2);
-                    } else if (t === 'triple') {
-                        const bondMesh1 = new THREE.Mesh(bondGeometry, bondMaterial);
-                        const bondMesh2 = new THREE.Mesh(bondGeometry, bondMaterial);
-                        const bondMesh3 = new THREE.Mesh(bondGeometry, bondMaterial);
-                        bondMesh1.position.set(0, DOUBLE_BOND_SPACING / 2, 0);
-                        bondMesh2.position.set(0, -DOUBLE_BOND_SPACING / 2, 0);
-                        bondMesh3.position.set(0, 0, TRIPLE_BOND_SPACING / 2);
-                        bondGroup.add(bondMesh1, bondMesh2, bondMesh3);
-                    } else {
-                        // For ionic, polar, nonpolar, covalent, etc. use a single thick/glowing bond
-                        const bondMesh = new THREE.Mesh(bondGeometry, bondMaterial);
-                        bondGroup.add(bondMesh);
+
+            if(visualizationMode === 'bohr') {
+                atoms.forEach((atom, index) => {
+                    const position = atomPositions[index] || new THREE.Vector3();
+                    const newObject = createAtomModel(atom, position, trailLength, trailOpacity);
+                    newObject.nucleus.userData = { symbol: atom.symbol, atomIndex: index };
+                    
+                    modelGroup.add(newObject.nucleus);
+                    newObject.shellPaths.forEach(p => modelGroup.add(p));
+                    newObject.electronPivots.forEach(p => modelGroup.add(p));
+                    if (newObject.electronTrails) {
+                        modelGroup.add(newObject.electronTrails);
                     }
-                    modelGroup.add(bondGroup);
-                    bondsRef.current.push(bondGroup);
+
+                    animatedObjectsRef.current.push(newObject);
+                    nucleiForDrag.push(newObject.nucleus);
+                });
+            } else { // 'quantum'
+                 atoms.forEach((atom, index) => {
+                    const position = atomPositions[index] || new THREE.Vector3();
+                    const newObject = createQuantumAtomModel(atom, position);
+                    newObject.nucleus.userData = { symbol: atom.symbol, atomIndex: index };
+                    
+                    modelGroup.add(newObject.nucleus);
+                    modelGroup.add(newObject.orbitals);
+                    if (newObject.electronCloud) {
+                        modelGroup.add(newObject.electronCloud);
+                    }
+
+                    quantumObjectsRef.current.push(newObject);
+                    nucleiForDrag.push(newObject.nucleus);
                 });
             }
-            // Drag controls (same as before)
-            if (dragControlsRef.current) dragControlsRef.current.dispose();
-            const dragControls = new DragControls(nucleiForDrag, cameraRef.current, rendererRef.current.domElement);
-            dragControls.enabled = true;
-            dragControlsRef.current = dragControls;
-            dragControls.addEventListener('dragstart', (event) => { event.object.material.emissiveIntensity = 1.0; event.object.material.color.offsetHSL(0, 0.2, 0); });
-            dragControls.addEventListener('dragend', (event) => { event.object.material.emissiveIntensity = 0.2; });
-            dragControls.addEventListener('drag', (event) => {
-                const index = event.object.userData.atomIndex;
-                if (index !== undefined) { onAtomPositionChange(index, event.object.position.clone()); }
-            });
-            // Initialize current positions for tweening
-            currentAtomPositionsRef.current = atomPositions.map(p => p.clone());
+            
+            if (bondingPairs.length > 0 && atoms.length > 1) {
+                const bondMaterial = new THREE.MeshStandardMaterial({
+                    color: 0xaaaaaa, metalness: 0.2, roughness: 0.5, transparent: true, opacity: 0
+                });
+                const bondGeometry = new THREE.CylinderGeometry(BOND_RADIUS, BOND_RADIUS, 1, 12);
+    
+                bondingPairs.forEach(bondInfo => {
+                    const { pair, type } = bondInfo;
+                    if (pair[0] < atoms.length && pair[1] < atoms.length) {
+                         const bondGroup = new THREE.Group();
+                         bondGroup.userData.pair = pair;
+                         bondGroup.visible = false;
+                        
+                        if (type === 3) { // Triple bond
+                            const bond1 = new THREE.Mesh(bondGeometry.clone(), bondMaterial.clone());
+                            bond1.position.x = -TRIPLE_BOND_SPACING;
+                            const bond2 = new THREE.Mesh(bondGeometry.clone(), bondMaterial.clone());
+                            const bond3 = new THREE.Mesh(bondGeometry.clone(), bondMaterial.clone());
+                            bond3.position.x = TRIPLE_BOND_SPACING;
+                            bondGroup.add(bond1, bond2, bond3);
+                        } else if (type === 2) { // Double bond
+                            const bond1 = new THREE.Mesh(bondGeometry.clone(), bondMaterial.clone());
+                            bond1.position.x = -DOUBLE_BOND_SPACING / 2;
+                            const bond2 = new THREE.Mesh(bondGeometry.clone(), bondMaterial.clone());
+                            bond2.position.x = DOUBLE_BOND_SPACING / 2;
+                            bondGroup.add(bond1, bond2);
+                        } else { // Single bond
+                            const bond = new THREE.Mesh(bondGeometry.clone(), bondMaterial.clone());
+                            bondGroup.add(bond);
+                        }
+                        
+                        modelGroup.add(bondGroup);
+                        bondsRef.current.push(bondGroup);
+                    }
+                });
+                bondGeometry.dispose();
+            }
+
+            if (dragControlsRef.current) {
+                dragControlsRef.current.dispose();
+            }
+            if(nucleiForDrag.length > 0 && cameraRef.current && rendererRef.current) {
+                const dragControls = new DragControls(nucleiForDrag, cameraRef.current, rendererRef.current.domElement);
+                dragControls.addEventListener('dragstart', () => {
+                    if (controlsRef.current) controlsRef.current.enabled = false;
+                });
+                dragControls.addEventListener('drag', (event) => {
+                    const nucleus = event.object;
+                    const index = nucleus.userData.atomIndex;
+                     if(visualizationMode === 'bohr') {
+                        const bohrObject = animatedObjectsRef.current[index];
+                        if(bohrObject) bohrObject.nucleus.position.copy(nucleus.position);
+                    } else {
+                        const quantumObject = quantumObjectsRef.current[index];
+                        if(quantumObject) quantumObject.nucleus.position.copy(nucleus.position);
+                    }
+                });
+                dragControls.addEventListener('dragend', (event) => {
+                    if (controlsRef.current) controlsRef.current.enabled = true;
+                    if (event.object.userData.atomIndex !== undefined) {
+                        onAtomPositionChange(event.object.userData.atomIndex, event.object.position);
+                    }
+                });
+                dragControlsRef.current = dragControls;
+            } else {
+                dragControlsRef.current = null;
+            }
+
             setIsLoading(false);
-        }, 0);
-    }, [atoms.length, bondingPairs.length, quantumMode, onAtomPositionChange, setIsLoading, atomPositions]);
+        }, 50);
 
-    // Smoothly tween atom positions toward their targets every frame
+    }, [atoms, atomPositions, bondingPairs, setIsLoading, onAtomPositionChange, visualizationMode, trailLength, trailOpacity]);
+
+     // Effect to efficiently update trail opacity without a full scene rebuild
     useEffect(() => {
-        let animationFrame: number;
-        function animatePositions() {
-            if (!animatedObjectsRef.current.length) {
-                animationFrame = requestAnimationFrame(animatePositions);
-                return;
-            }
-            let needsUpdate = false;
-            for (let i = 0; i < animatedObjectsRef.current.length; i++) {
-                const obj = animatedObjectsRef.current[i];
-                const target = atomPositions[i] || new THREE.Vector3();
-                const current = obj.nucleus.position;
-                // Lerp toward target (faster for less flicker)
-                current.lerp(target, 0.35); // Increased speed for smoother animation
-                if (current.distanceTo(target) > 0.01) needsUpdate = true;
-            }
-            if (needsUpdate && rendererRef.current && sceneRef.current && cameraRef.current) {
-                rendererRef.current.render(sceneRef.current, cameraRef.current);
-            }
-            animationFrame = requestAnimationFrame(animatePositions);
+        if (visualizationMode === 'bohr') {
+            animatedObjectsRef.current.forEach(obj => {
+                if (obj.electronTrails) {
+                    const material = obj.electronTrails.material as THREE.PointsMaterial;
+                    material.opacity = trailOpacity;
+                }
+            });
         }
-        animatePositions();
+    }, [trailOpacity, visualizationMode]);
 
-        return () => cancelAnimationFrame(animationFrame);
-    }, [atomPositions]);
-
-    return <div ref={mountRef} style={{ width: '100%', height: '100%' }} />;
+    return <div ref={mountRef} className="w-full h-full" />;
 };
 
 export default memo(AtomViewer);

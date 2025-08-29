@@ -1,0 +1,51 @@
+{
+  "name": "Gadolinium",
+  "appearance": "silvery white",
+  "atomic_mass": 157.253,
+  "boil": 3273,
+  "category": "lanthanide",
+  "density": 7.9,
+  "discovered_by": "Jean Charles Galissard de Marignac",
+  "melt": 1585,
+  "molar_heat": 37.03,
+  "named_by": null,
+  "number": 64,
+  "period": 6,
+  "group": 3,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Gadolinium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_064_gadolinium/element_064_gadolinium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_064_gadolinium/element_064_gadolinium.glb",
+  "spectral_img": null,
+  "summary": "Gadolinium is a chemical element with symbol Gd and atomic number 64. It is a silvery-white, malleable and ductile rare-earth metal. It is found in nature only in combined (salt) form.",
+  "symbol": "Gd",
+  "xpos": 10,
+  "ypos": 9,
+  "wxpos": 10,
+  "wypos": 6,
+  "shells": [
+    2,
+    8,
+    18,
+    25,
+    9,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f7 5d1",
+  "electron_configuration_semantic": "[Xe] 4f7 5d1 6s2",
+  "electron_affinity": 13.22,
+  "electronegativity_pauling": 1.2,
+  "ionization_energies": [
+    593.4,
+    1170,
+    1990,
+    4250
+  ],
+  "cpk-hex": "45ffc7",
+  "image": {
+    "title": "Pure (99.95%) Amorphous Gadolinium, about 12 grams, 2 × 1.5 × 0.5 cm, cast in acrylic glass",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Gadolinium-2.jpg",
+    "attribution": "Jurii, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/gadolinium.php"
+  },
+  "block": "f"
+}

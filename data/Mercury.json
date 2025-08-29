@@ -1,0 +1,50 @@
+{
+  "name": "Mercury",
+  "appearance": "silvery",
+  "atomic_mass": 200.5923,
+  "boil": 629.88,
+  "category": "transition metal",
+  "density": 13.534,
+  "discovered_by": "unknown, before 2000 BCE",
+  "melt": 234.321,
+  "molar_heat": 27.983,
+  "named_by": null,
+  "number": 80,
+  "period": 6,
+  "group": 12,
+  "phase": "Liquid",
+  "source": "https://en.wikipedia.org/wiki/Mercury (Element)",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_080_mercury/element_080_mercury_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_080_mercury/element_080_mercury.glb",
+  "spectral_img": null,
+  "summary": "Mercury is a chemical element with symbol Hg and atomic number 80. It is commonly known as quicksilver and was formerly named hydrargyrum (/haɪˈdrɑːrdʒərəm/). A heavy, silvery d-block element, mercury is the only metallic element that is liquid at standard conditions for temperature and pressure; the only other element that is liquid under these conditions is bromine, though metals such as caesium, gallium, and rubidium melt just above room temperature.",
+  "symbol": "Hg",
+  "xpos": 12,
+  "ypos": 6,
+  "wxpos": 26,
+  "wypos": 6,
+  "shells": [
+    2,
+    8,
+    18,
+    32,
+    18,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10",
+  "electron_configuration_semantic": "[Xe] 4f14 5d10 6s2",
+  "electron_affinity": -48,
+  "electronegativity_pauling": 2,
+  "ionization_energies": [
+    1007.1,
+    1810,
+    3300
+  ],
+  "cpk-hex": "b8b8d0",
+  "image": {
+    "title": "6 grams pure mercury. Diameter of the inner disc: 2 cm",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/be/Hydrargyrum_%2880_Hg%29.jpg",
+    "attribution": "Hi-Res Images of Chemical Elements, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/mercury.php"
+  },
+  "block": "d"
+}

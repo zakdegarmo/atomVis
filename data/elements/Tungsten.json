@@ -1,0 +1,49 @@
+{
+  "name": "Tungsten",
+  "appearance": "grayish white, lustrous",
+  "atomic_mass": 183.841,
+  "boil": 6203,
+  "category": "transition metal",
+  "density": 19.25,
+  "discovered_by": "Carl Wilhelm Scheele",
+  "melt": 3695,
+  "molar_heat": 24.27,
+  "named_by": null,
+  "number": 74,
+  "period": 6,
+  "group": 6,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Tungsten",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_074_tungsten/element_074_tungsten_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_074_tungsten/element_074_tungsten.glb",
+  "spectral_img": null,
+  "summary": "Tungsten, also known as wolfram, is a chemical element with symbol W and atomic number 74. The word tungsten comes from the Swedish language tung sten, which directly translates to heavy stone. Its name in Swedish is volfram, however, in order to distinguish it from scheelite, which in Swedish is alternatively named tungsten.",
+  "symbol": "W",
+  "xpos": 6,
+  "ypos": 6,
+  "wxpos": 20,
+  "wypos": 6,
+  "shells": [
+    2,
+    8,
+    18,
+    32,
+    12,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d4",
+  "electron_configuration_semantic": "[Xe] 4f14 5d4 6s2",
+  "electron_affinity": 78.76,
+  "electronegativity_pauling": 2.36,
+  "ionization_energies": [
+    770,
+    1700
+  ],
+  "cpk-hex": "2194d6",
+  "image": {
+    "title": "Tungsten rod with oxidised surface, 80 grams. Original size in cm: 1.3 x 3",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Tungsten_rod_with_oxidised_surface.jpg",
+    "attribution": "Jurii, CC BY 1.0 <https://creativecommons.org/licenses/by/1.0>, via Wikimedia Commons, source: https://images-of-elements.com/tungsten.php"
+  },
+  "block": "d"
+}

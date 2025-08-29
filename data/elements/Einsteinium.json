@@ -1,0 +1,49 @@
+{
+  "name": "Einsteinium",
+  "appearance": "silver-colored",
+  "atomic_mass": 252,
+  "boil": 1269,
+  "category": "actinide",
+  "density": 8.84,
+  "discovered_by": "Lawrence Berkeley National Laboratory",
+  "melt": 1133,
+  "molar_heat": null,
+  "named_by": null,
+  "number": 99,
+  "period": 7,
+  "group": 3,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Einsteinium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_099_einsteinium/element_099_einsteinium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_099_einsteinium/element_099_einsteinium.glb",
+  "spectral_img": null,
+  "summary": "Einsteinium is a synthetic element with symbol Es and atomic number 99. It is the seventh transuranic element, and an actinide. Einsteinium was discovered as a component of the debris of the first hydrogen bomb explosion in 1952, and named after Albert Einstein.",
+  "symbol": "Es",
+  "xpos": 13,
+  "ypos": 10,
+  "wxpos": 13,
+  "wypos": 7,
+  "shells": [
+    2,
+    8,
+    18,
+    32,
+    29,
+    8,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f11",
+  "electron_configuration_semantic": "[Rn] 5f11 7s2",
+  "electron_affinity": -28.6,
+  "electronegativity_pauling": 1.3,
+  "ionization_energies": [
+    619
+  ],
+  "cpk-hex": "b31fd4",
+  "image": {
+    "title": "300 micrograms of Einsteinium 253, which has a half-life of 20 days.",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/55/Einsteinium.jpg",
+    "attribution": "Haire, R. G., US Department of Energy.Touched up by Materialscientist at en.wikipedia., Public domain, via Wikimedia Commons"
+  },
+  "block": "f"
+}

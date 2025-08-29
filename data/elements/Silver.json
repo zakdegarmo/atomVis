@@ -1,0 +1,49 @@
+{
+  "name": "Silver",
+  "appearance": "lustrous white metal",
+  "atomic_mass": 107.86822,
+  "boil": 2435,
+  "category": "transition metal",
+  "density": 10.49,
+  "discovered_by": "unknown, before 5000 BC",
+  "melt": 1234.93,
+  "molar_heat": 25.35,
+  "named_by": null,
+  "number": 47,
+  "period": 5,
+  "group": 11,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Silver",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_047_silver/element_047_silver_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_047_silver/element_047_silver.glb",
+  "spectral_img": null,
+  "summary": "Silver is a chemical element with symbol Ag (Greek:άργυρος árguros, Latin:argentum, both from the Indo-European root *h₂erǵ- for \"grey\" or \"shining\") and atomic number 47. A soft, white, lustrous transition metal, it possesses the highest electrical conductivity, thermal conductivity and reflectivity of any metal. The metal occurs naturally in its pure, free form (native silver), as an alloy with gold and other metals, and in minerals such as argentite and chlorargyrite.",
+  "symbol": "Ag",
+  "xpos": 11,
+  "ypos": 5,
+  "wxpos": 25,
+  "wypos": 5,
+  "shells": [
+    2,
+    8,
+    18,
+    18,
+    1
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s1 4d10",
+  "electron_configuration_semantic": "[Kr] 4d10 5s1",
+  "electron_affinity": 125.862,
+  "electronegativity_pauling": 1.93,
+  "ionization_energies": [
+    731,
+    2070,
+    3361
+  ],
+  "cpk-hex": "c0c0c0",
+  "image": {
+    "title": "Natural silver nugget, 1 cm long.",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Silver-nugget.jpg",
+    "attribution": "Jurii, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: http://images-of-elements.com/silver.php"
+  },
+  "block": "d"
+}

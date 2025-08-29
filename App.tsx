@@ -1,15 +1,38 @@
+
 import React, { useState, useEffect, useCallback } from 'react';
 import * as THREE from 'three';
 import { GoogleGenAI, Type } from '@google/genai';
-import type { Atom, ElementInfo, MoleculeInfo, ContextMenuState, Bond } from './types';
+import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
+import type { Atom, ElementInfo, MoleculeInfo, ContextMenuState, Bond, ParsedMoleculeData } from './types';
 import AtomSelector from './components/AtomSelector';
 import AtomViewer from './components/AtomViewer';
 import { GithubIcon } from './components/Icons';
 import { knownMolecules } from './data/molecules';
 import MoleculeInfoCard from './components/MoleculeInfoCard';
 import ContextMenu from './components/ContextMenu';
+import DatabaseSearch from './components/DatabaseSearch';
 
 // --- Helper Functions ---
+
+/**
+ * Triggers a browser download for a Blob.
+ */
+function triggerDownload(blob: Blob, fileName: string) {
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = fileName;
+
+    // Append to body, click, and remove
+    document.body.appendChild(link);
+    link.click();
+
+    // Clean up after the download has been initiated
+    setTimeout(() => {
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
+    }, 100);
+}
+
 
 /**
  * Calculates a representative "visual radius" for an atom for use in spacing calculations.
@@ -57,11 +80,15 @@ const App: React.FC = () => {
   const [bondingPairs, setBondingPairs] = useState<Bond[]>([]);
   const [moleculeName, setMoleculeName] = useState<string | null>(null);
   const [electronSpeed, setElectronSpeed] = useState<number>(0.2);
+  const [speedInputValue, setSpeedInputValue] = useState<string>('20');
+  const [isSlowMotion, setIsSlowMotion] = useState<boolean>(false);
+  const [previousElectronSpeed, setPreviousElectronSpeed] = useState<number>(0.2);
   const [bondingProgress, setBondingProgress] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  // Quantum mode toggle (secondary/fun feature)
-  const [quantumMode, setQuantumMode] = useState<boolean>(false);
+  const [isSearching, setIsSearching] = useState<boolean>(false);
+  const [visualizationMode, setVisualizationMode] = useState<'bohr' | 'quantum'>('bohr');
+  const [trailLength, setTrailLength] = useState<number>(15);
+  const [trailOpacity, setTrailOpacity] = useState<number>(1.0);
 
   // State for Gemini feature
   const [showInfoCard, setShowInfoCard] = useState<boolean>(false);
@@ -70,7 +97,7 @@ const App: React.FC = () => {
   const [infoError, setInfoError] = useState<string | null>(null);
 
   // State for formula input
-  const [formula, setFormula] = useState<string>('CH3.CH2.OH');
+  const [formula, setFormula] = useState<string>('Aspirin');
   const [formulaError, setFormulaError] = useState<string | null>(null);
 
   // State for context menu
@@ -88,6 +115,14 @@ const App: React.FC = () => {
       .then(data => setElementList(data.elements))
       .catch(error => console.error("Failed to load element list:", error));
   }, []);
+
+  // Sync speed input box with electronSpeed state
+  useEffect(() => {
+    const percentageString = (electronSpeed * 100).toFixed(
+        isSlowMotion && electronSpeed * 100 < 1 ? 2 : 0
+    );
+    setSpeedInputValue(percentageString);
+  }, [electronSpeed, isSlowMotion]);
 
   // Adjust atom symbol array when totalAtoms changes
   useEffect(() => {
@@ -148,7 +183,7 @@ const App: React.FC = () => {
           return obj;
       };
 
-      return fetch(`/${elementName}.json`)
+      return fetch(`/data/elements/${elementName}.json`)
         .then(res => {
           if (!res.ok) throw new Error(`Data for ${elementName} not found. Status: ${res.status}`);
           return res.json();
@@ -258,7 +293,7 @@ const App: React.FC = () => {
                 }
                 
                 for (let i = 0; i < count; i++) {
-                    newSymbols.push(normalizedSymbol as string);
+                    newSymbols.push(normalizedSymbol);
                 }
                 lastIndex = regex.lastIndex;
             }
@@ -282,10 +317,194 @@ const App: React.FC = () => {
         setTotalAtoms(newSymbols.length);
     }, [elementList, formula]);
 
+    const handleLoadMoleculeFromData = useCallback((data: ParsedMoleculeData | null) => {
+        if (!data || data.symbols.length === 0) {
+            setFormulaError("Could not parse molecule data from the database.");
+            return;
+        }
+
+        // --- Center and Scale Molecule ---
+        const positions = data.positions;
+        if(positions.length === 0) return;
+
+        const boundingBox = new THREE.Box3().setFromPoints(positions);
+        const center = new THREE.Vector3();
+        boundingBox.getCenter(center);
+        
+        const size = new THREE.Vector3();
+        boundingBox.getSize(size);
+        const maxDim = Math.max(size.x, size.y, size.z);
+        const desiredSize = 25.0; // Target size for the viewer
+        const scale = maxDim > 0 ? desiredSize / maxDim : 1;
+
+        const centeredPositions = positions.map(p => 
+            p.clone().sub(center).multiplyScalar(scale)
+        );
+
+        setAtomSymbols(data.symbols);
+        setTotalAtoms(data.symbols.length);
+        setBondingPairs(data.bonds);
+        setAtomPositions(centeredPositions);
+        setMoleculeName(data.name);
+        setFormula(data.name); // update formula input as well
+        setBondingProgress(data.bonds.length > 0 ? 1 : 0);
+    }, []);
+
+    const handleExportJSON = useCallback(() => {
+        if (atoms.length === 0) {
+            alert("There is no molecule to export.");
+            return;
+        }
+
+        const baseName = (moleculeName || 'Molecule').replace(/[^a-z0-9]/gi, '_').toLowerCase();
+        const finalFileName = `${baseName}.json`;
+
+        const exportData = {
+            name: moleculeName || 'Custom Molecule',
+            atoms: atomSymbols.map((symbol, index) => ({
+                symbol: symbol,
+                position: atomPositions[index] ? [atomPositions[index].x, atomPositions[index].y, atomPositions[index].z] : [0, 0, 0],
+            })),
+            bonds: bondingPairs
+        };
+
+        const jsonString = JSON.stringify(exportData, null, 2);
+        const blob = new Blob([jsonString], { type: 'application/json' });
+        
+        triggerDownload(blob, finalFileName);
+
+    }, [atoms, atomSymbols, atomPositions, bondingPairs, moleculeName]);
+
+    const handleExportGLTF = useCallback(() => {
+        if (atoms.length === 0) {
+            alert("There is no molecule to export.");
+            return;
+        }
+        
+        const baseName = (moleculeName || 'Molecule').replace(/[^a-z0-9]/gi, '_').toLowerCase();
+        const finalFileName = `${baseName}.glb`;
+
+        const exporter = new GLTFExporter();
+        const exportGroup = new THREE.Group();
+
+        // --- Constants for geometry ---
+        const NUCLEUS_SCALE_FACTOR = 0.3;
+        const BOND_RADIUS = 0.15;
+        const DOUBLE_BOND_SPACING = 0.35;
+        const TRIPLE_BOND_SPACING = 0.35;
+        const ELECTRON_SIZE = 0.08;
+        const SHELL_BASE_RADIUS = 2.5;
+        const SHELL_SPACING = 1.8;
+        
+        // --- Shared materials and geometries for efficiency ---
+        const electronMaterial = new THREE.MeshStandardMaterial({ color: 0x00ffff, emissive: 0x00ffff, emissiveIntensity: 0.6 });
+        const electronGeometry = new THREE.SphereGeometry(ELECTRON_SIZE, 16, 16);
+        const bondMaterial = new THREE.MeshStandardMaterial({ color: 0xaaaaaa, metalness: 0.2, roughness: 0.5 });
+        const bondGeometry = new THREE.CylinderGeometry(BOND_RADIUS, BOND_RADIUS, 1, 12);
+
+        // --- Add atom and electron meshes ---
+        atoms.forEach((atom, index) => {
+            const atomCenter = atomPositions[index];
+            if (!atomCenter) return;
+            
+            const atomScale = Math.max(0.5, Math.cbrt(atom.atomicMass) * NUCLEUS_SCALE_FACTOR);
+            
+            // Nucleus
+            const geometry = new THREE.SphereGeometry(atomScale, 32, 16);
+            const color = `#${atom.cpkHex || 'cccccc'}`;
+            const material = new THREE.MeshStandardMaterial({
+                color: new THREE.Color(color),
+                metalness: 0.1,
+                roughness: 0.7,
+            });
+            const mesh = new THREE.Mesh(geometry, material);
+            mesh.position.copy(atomCenter);
+            exportGroup.add(mesh);
+            
+            // Electrons (Bohr model representation)
+            atom.shells.forEach((numElectrons, shellIndex) => {
+                const shellRadius = (SHELL_BASE_RADIUS + shellIndex * SHELL_SPACING) * atomScale;
+                const electronPositions = getSpherePoints(numElectrons, shellRadius);
+
+                electronPositions.forEach(pos => {
+                    const electronMesh = new THREE.Mesh(electronGeometry.clone(), electronMaterial.clone());
+                    electronMesh.position.copy(atomCenter).add(pos);
+                    exportGroup.add(electronMesh);
+                });
+            });
+        });
+        
+        // --- Add bond meshes ---
+        if (bondingPairs.length > 0) {
+            const upVector = new THREE.Vector3(0, 1, 0);
+
+            bondingPairs.forEach(bondInfo => {
+                const { pair, type } = bondInfo;
+                const posA = atomPositions[pair[0]];
+                const posB = atomPositions[pair[1]];
+                
+                if (!posA || !posB) return;
+
+                const bondGroup = new THREE.Group();
+                const createBondMesh = () => new THREE.Mesh(bondGeometry.clone(), bondMaterial.clone());
+
+                if (type === 3) {
+                    const bond1 = createBondMesh();
+                    bond1.position.x = -TRIPLE_BOND_SPACING;
+                    const bond2 = createBondMesh();
+                    const bond3 = createBondMesh();
+                    bond3.position.x = TRIPLE_BOND_SPACING;
+                    bondGroup.add(bond1, bond2, bond3);
+                } else if (type === 2) {
+                    const bond1 = createBondMesh();
+                    bond1.position.x = -DOUBLE_BOND_SPACING / 2;
+                    const bond2 = createBondMesh();
+                    bond2.position.x = DOUBLE_BOND_SPACING / 2;
+                    bondGroup.add(bond1, bond2);
+                } else {
+                    bondGroup.add(createBondMesh());
+                }
+
+                const distance = posA.distanceTo(posB);
+                bondGroup.position.copy(posA).lerp(posB, 0.5);
+                const direction = new THREE.Vector3().subVectors(posB, posA);
+                bondGroup.quaternion.setFromUnitVectors(upVector, direction.clone().normalize());
+                bondGroup.scale.set(1, distance, 1);
+                exportGroup.add(bondGroup);
+            });
+        }
+        
+        // --- Setup and export scene ---
+        const exportScene = new THREE.Scene();
+        exportScene.add(exportGroup);
+        exportScene.add(new THREE.AmbientLight(0xffffff, 0.8));
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.0);
+        directionalLight.position.set(5, 10, 7.5);
+        exportScene.add(directionalLight);
+
+        exporter.parse(exportScene, (result) => {
+                if (result instanceof ArrayBuffer) {
+                    const blob = new Blob([result], { type: 'model/gltf-binary' });
+                    triggerDownload(blob, finalFileName);
+                }
+            }, (error) => {
+                console.error('An error occurred during GLB export:', error);
+                alert('An error occurred during GLB export. See console for details.');
+            }, { binary: true }
+        );
+
+        // Dispose of geometries created specifically for the export to prevent memory leaks
+        electronGeometry.dispose();
+        bondGeometry.dispose();
+
+    }, [atoms, atomPositions, bondingPairs, moleculeName]);
+
   // Effect to load data for all selected atoms and determine bonding structure
   useEffect(() => {
     if (elementList.length === 0 || atomSymbols.length === 0) return;
+    
     setIsLoading(true);
+
     Promise.all(atomSymbols.map(symbol => fetchAtomData(symbol, elementList)))
       .then(fetchedAtoms => {
         // Filter out any nulls from failed fetches
@@ -295,46 +514,42 @@ const App: React.FC = () => {
             return;
         }
         setAtoms(validAtoms);
-        // Determine bonding structure
+        
+        // This part is for pre-defined molecules. It will be overridden if a db molecule is loaded
+        // because `setBondingPairs` will be called again in `handleLoadMoleculeFromData`.
         const signature = atomSymbols.join('');
         const moleculeData = knownMolecules[signature];
+        
         let newBondingPairs: Bond[] = [];
         if (moleculeData) {
             setMoleculeName(moleculeData.name);
             newBondingPairs = moleculeData.pairs;
         } else {
-            setMoleculeName(null);
+            // Only clear the name if not loading from db.
+            // A better check might be needed, but this prevents flickering.
+            if(moleculeName === null) setMoleculeName(null);
         }
-        setBondingPairs(newBondingPairs);
-        setBondingProgress(newBondingPairs.length > 0 ? 1 : 0);
+
+        // Only set default positions and bonds if they haven't been set by the database loader
+        if (bondingPairs.length === 0) {
+            setBondingPairs(newBondingPairs);
+            setBondingProgress(newBondingPairs.length > 0 ? 1 : 0);
+        }
+
+        if (atomPositions.length !== validAtoms.length) {
+            const newPositions: THREE.Vector3[] = [];
+            if (validAtoms.length > 0) {
+                newPositions.push(new THREE.Vector3(0, 0, 0)); // Central atom
+                if (validAtoms.length > 1) {
+                    const spherePoints = getSpherePoints(validAtoms.length - 1, 15);
+                    spherePoints.forEach(point => newPositions.push(point));
+                }
+            }
+            setAtomPositions(newPositions);
+        }
         // Loading state is turned off by AtomViewer after rendering is complete
       });
   }, [atomSymbols, elementList, fetchAtomData]);
-
-  // --- Proximity-based Atom Placement (bondingProgress controls distance) ---
-  useEffect(() => {
-    function getFibonacciSpherePoints(samples: number, radius: number): THREE.Vector3[] {
-      if (samples <= 0) return [];
-      if (samples === 1) return [new THREE.Vector3(0, 0, 0)];
-      let points = [];
-      const phi = Math.PI * (3. - Math.sqrt(5.));
-      for (let i = 0; i < samples; i++) {
-          const y = 1 - (i / (samples - 1)) * 2;
-          const r = Math.sqrt(1 - y * y);
-          points.push(new THREE.Vector3(Math.cos(phi * i) * r * radius, y * radius, Math.sin(phi * i) * r * radius));
-      }
-      return points;
-    }
-    const atomCount = atoms.length;
-    const baseRadius = 15;
-    const minRadius = 2.5;
-    let newPositions: THREE.Vector3[] = [];
-    if (atomCount > 0) {
-      const bondRadius = baseRadius - (baseRadius - minRadius) * (bondingProgress || 0);
-      newPositions = getFibonacciSpherePoints(atomCount, bondRadius);
-    }
-    setAtomPositions(newPositions);
-  }, [atoms, bondingProgress]);
   
   // Auto-build on first load when element list is ready
   useEffect(() => {
@@ -376,6 +591,44 @@ const App: React.FC = () => {
     handleCloseContextMenu();
   }, [handleCloseContextMenu]);
 
+  const handleSlowMotionToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = e.target.checked;
+    setIsSlowMotion(checked);
+    if (checked) {
+        setPreviousElectronSpeed(electronSpeed);
+        setElectronSpeed(electronSpeed / 100);
+    } else {
+        setElectronSpeed(previousElectronSpeed);
+    }
+  };
+
+  const handleSpeedInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSpeedInputValue(value);
+
+    if (value === '' || value.endsWith('.')) {
+        return;
+    }
+
+    const percentage = parseFloat(value);
+    if (!isNaN(percentage) && percentage >= 0 && percentage <= 100000) {
+        setElectronSpeed(percentage / 100);
+    }
+  };
+
+  const handleSpeedInputBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    let percentage = parseFloat(value);
+    
+    if (isNaN(percentage) || percentage < 0) {
+        percentage = 0;
+    } else if (percentage > 100000) {
+        percentage = 100000;
+    }
+
+    setElectronSpeed(percentage / 100);
+  };
+
 
   // Determine dynamic classes for layout based on the number of atoms
   const panelMaxWidthClass = totalAtoms > 30 ? 'max-w-2xl' : totalAtoms > 10 ? 'max-w-lg' : 'max-w-sm';
@@ -403,15 +656,33 @@ const App: React.FC = () => {
                         Molecule Composer
                         {moleculeName && <span className="ml-2 text-base font-normal text-gray-300">({moleculeName})</span>}
                     </h2>
-                    {moleculeName && (
-                        <button 
-                            onClick={handleGetInfoClick}
-                            className="ml-auto px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded-full hover:bg-blue-500 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 disabled:bg-blue-800/50 disabled:cursor-wait"
-                            disabled={isInfoLoading}
-                        >
-                           {isInfoLoading ? '...' : 'Get Info'}
-                        </button>
-                    )}
+                     <div className="flex items-center space-x-2 ml-auto">
+                      {moleculeName && (
+                          <button 
+                              onClick={handleGetInfoClick}
+                              className="px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded-full hover:bg-blue-500 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 disabled:bg-blue-800/50 disabled:cursor-wait"
+                              disabled={isInfoLoading}
+                          >
+                            {isInfoLoading ? '...' : 'Get Info'}
+                          </button>
+                      )}
+                      <button
+                          onClick={handleExportJSON}
+                          className="px-3 py-1 bg-green-600 text-white text-xs font-bold rounded-full hover:bg-green-500 transition-colors focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 disabled:bg-green-800/50 disabled:cursor-not-allowed"
+                          disabled={atoms.length === 0}
+                          title="Download molecule data as a JSON file"
+                      >
+                          Download JSON
+                      </button>
+                       <button
+                          onClick={handleExportGLTF}
+                          className="px-3 py-1 bg-indigo-600 text-white text-xs font-bold rounded-full hover:bg-indigo-500 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-75 disabled:bg-indigo-800/50 disabled:cursor-not-allowed"
+                          disabled={atoms.length === 0}
+                          title="Download molecule as a 3D model (.glb)"
+                      >
+                          Download GLB
+                      </button>
+                    </div>
                 </div>
                 
                 <div className="space-y-2">
@@ -443,11 +714,11 @@ const App: React.FC = () => {
                 <div className="border-b border-gray-600/50 my-3"></div>
 
                 <div>
-                  <div className="flex justify-between items-center mb-1">
-                      <label htmlFor="total-atoms-slider" className="text-sm font-medium text-gray-300">Total Atoms</label>
-                      <span className="font-bold text-blue-400 text-lg">{totalAtoms}</span>
-                  </div>
-                  <input type="range" id="total-atoms-slider" min="1" max="100" value={totalAtoms} onChange={(e) => setTotalAtoms(parseInt(e.target.value))} className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-500" />
+                    <div className="flex justify-between items-center mb-1">
+                        <label htmlFor="total-atoms-slider" className="text-sm font-medium text-gray-300">Total Atoms</label>
+                        <span className="font-bold text-blue-400 text-lg">{totalAtoms}</span>
+                    </div>
+                    <input type="range" id="total-atoms-slider" min="1" max="100" value={totalAtoms} onChange={(e) => setTotalAtoms(parseInt(e.target.value))} className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-500" />
                 </div>
                 <div className={`grid ${atomGridColsClass} gap-x-4 gap-y-2 max-h-[40vh] overflow-y-auto pr-2`}>
                   {atomSymbols.map((symbol, index) => (
@@ -465,46 +736,125 @@ const App: React.FC = () => {
                 </div>
             </div>
 
+            <DatabaseSearch 
+              onMoleculeLoad={handleLoadMoleculeFromData}
+              setIsSearching={setIsSearching}
+            />
+
             <div className="p-3 bg-gray-800/70 rounded-md border border-gray-600 space-y-3">
                 <h2 className="text-lg font-semibold text-teal-300 border-b border-gray-600 pb-2 mb-2">
                     Visualization Controls
                 </h2>
                 <div>
-                  <div className="flex justify-between items-center mb-1">
-                      <label htmlFor="bonding-slider" className="text-sm font-medium text-gray-300">Bonding Process</label>
-                      <span className="font-bold text-teal-400 text-lg">{(bondingProgress * 100).toFixed(0)}%</span>
+                  <div className="flex justify-between items-center mb-2">
+                      <label className="text-sm font-medium text-gray-300">Display Model</label>
+                      <div className="flex items-center justify-center bg-gray-700 rounded-full p-1">
+                          <button
+                              onClick={() => setVisualizationMode('bohr')}
+                              className={`px-3 py-1 text-xs font-bold rounded-full transition-colors ${visualizationMode === 'bohr' ? 'bg-blue-500 text-white' : 'text-gray-400 hover:bg-gray-600'}`}
+                          >
+                              Bohr
+                          </button>
+                          <button
+                              onClick={() => setVisualizationMode('quantum')}
+                              className={`px-3 py-1 text-xs font-bold rounded-full transition-colors ${visualizationMode === 'quantum' ? 'bg-purple-500 text-white' : 'text-gray-400 hover:bg-gray-600'}`}
+                          >
+                              Quantum
+                          </button>
+                      </div>
                   </div>
-                  <input 
-                    type="range" 
-                    id="bonding-slider" 
-                    min="0" max="1" 
-                    step="0.01" 
-                    value={bondingProgress} 
-                    onChange={(e) => setBondingProgress(parseFloat(e.target.value))} 
-                    className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-teal-500 disabled:accent-gray-600 disabled:cursor-not-allowed"
-                    disabled={bondingPairs.length === 0}
-                  />
                 </div>
-                <div>
-                  <div className="flex justify-between items-center mb-1">
-                      <label htmlFor="speed-slider" className="text-sm font-medium text-gray-300">Electron Speed</label>
-                      <span className="font-bold text-purple-400 text-lg">{(electronSpeed * 100).toFixed(0)}%</span>
-                  </div>
-                  <input type="range" id="speed-slider" min="0" max="1" step="0.01" value={electronSpeed} onChange={(e) => setElectronSpeed(parseFloat(e.target.value))} className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-purple-500" />
-                </div>
-                <div className="flex items-center mt-4">
-                  <input
-                    type="checkbox"
-                    id="quantum-mode-toggle"
-                    checked={quantumMode}
-                    onChange={() => setQuantumMode(q => !q)}
-                    className="accent-cyan-500 mr-2 w-5 h-5 cursor-pointer"
-                  />
-                  <label htmlFor="quantum-mode-toggle" className="text-base text-cyan-300 cursor-pointer select-none font-semibold flex items-center">
-                    Quantum Cloud Mode
-                    <span className="ml-2 px-2 py-0.5 bg-cyan-700 text-xs rounded-full animate-pulse">NEW</span>
-                    <span className="ml-2 text-xs text-gray-400">(see electron clouds!)</span>
-                  </label>
+                 <div className="border-t border-gray-700 pt-3 space-y-3">
+                    <div>
+                      <div className="flex justify-between items-center mb-1">
+                          <label htmlFor="bonding-slider" className="text-sm font-medium text-gray-300">Bonding Process</label>
+                          <span className="font-bold text-teal-400 text-lg">{(bondingProgress * 100).toFixed(0)}%</span>
+                      </div>
+                      <input 
+                        type="range" 
+                        id="bonding-slider" 
+                        min="0" max="1" 
+                        step="0.01" 
+                        value={bondingProgress} 
+                        onChange={(e) => setBondingProgress(parseFloat(e.target.value))} 
+                        className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-teal-500 disabled:accent-gray-600 disabled:cursor-not-allowed"
+                        disabled={bondingPairs.length === 0}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center mb-1">
+                          <label htmlFor="speed-slider" className="text-sm font-medium text-gray-300">Electron Speed</label>
+                          <div className="relative flex items-center">
+                              <input 
+                                  type="text"
+                                  value={speedInputValue}
+                                  onChange={handleSpeedInputChange}
+                                  onBlur={handleSpeedInputBlur}
+                                  disabled={visualizationMode === 'quantum' || isSlowMotion}
+                                  className="bg-gray-900/50 border border-gray-600 text-purple-400 font-bold text-lg rounded-md w-28 text-right pr-7 focus:ring-purple-500 focus:border-purple-500 disabled:bg-gray-700/50 disabled:cursor-not-allowed"
+                                  aria-label="Electron speed percentage"
+                              />
+                              <span className="absolute right-2 top-1/2 -translate-y-1/2 text-purple-400 font-bold text-lg pointer-events-none">%</span>
+                          </div>
+                      </div>
+                      <input 
+                        type="range" 
+                        id="speed-slider" 
+                        min="0" max="1" 
+                        step="0.01" 
+                        value={Math.min(electronSpeed, 1)} 
+                        onChange={(e) => setElectronSpeed(parseFloat(e.target.value))} 
+                        className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-purple-500 disabled:accent-gray-600 disabled:cursor-not-allowed"
+                        disabled={visualizationMode === 'quantum' || isSlowMotion}
+                      />
+                       <div className="flex items-center justify-end space-x-2 pt-1">
+                        <label htmlFor="slow-motion-checkbox" className="text-sm font-medium text-gray-400 cursor-pointer select-none">Slow Motion</label>
+                        <input
+                          type="checkbox"
+                          id="slow-motion-checkbox"
+                          checked={isSlowMotion}
+                          onChange={handleSlowMotionToggle}
+                          className="h-5 w-5 bg-gray-700 border-gray-600 rounded cursor-pointer accent-purple-500 focus:ring-purple-600 disabled:cursor-not-allowed disabled:opacity-50"
+                          disabled={visualizationMode === 'quantum'}
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-3 border-t border-gray-700 pt-3">
+                        <div>
+                            <div className="flex justify-between items-center mb-1">
+                                <label htmlFor="trail-length-slider" className="text-sm font-medium text-gray-300">Trail Length</label>
+                                <span className="font-bold text-teal-400 text-lg">{trailLength}</span>
+                            </div>
+                            <input 
+                              type="range" 
+                              id="trail-length-slider" 
+                              min="1" max="50" 
+                              step="1" 
+                              value={trailLength} 
+                              onChange={(e) => setTrailLength(parseInt(e.target.value))} 
+                              className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-teal-500 disabled:accent-gray-600 disabled:cursor-not-allowed"
+                              disabled={visualizationMode === 'quantum'}
+                              aria-label="Electron trail length"
+                            />
+                        </div>
+                        <div>
+                            <div className="flex justify-between items-center mb-1">
+                                <label htmlFor="trail-opacity-slider" className="text-sm font-medium text-gray-300">Trail Opacity</label>
+                                <span className="font-bold text-teal-400 text-lg">{(trailOpacity * 100).toFixed(0)}%</span>
+                            </div>
+                            <input 
+                              type="range" 
+                              id="trail-opacity-slider" 
+                              min="0" max="1" 
+                              step="0.01" 
+                              value={trailOpacity} 
+                              onChange={(e) => setTrailOpacity(parseFloat(e.target.value))} 
+                              className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-teal-500 disabled:accent-gray-600 disabled:cursor-not-allowed"
+                              disabled={visualizationMode === 'quantum'}
+                              aria-label="Electron trail opacity"
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -520,11 +870,22 @@ const App: React.FC = () => {
           electronSpeed={electronSpeed}
           setIsLoading={setIsLoading}
           onAtomRightClick={handleAtomRightClick}
-          quantumMode={quantumMode}
+          visualizationMode={visualizationMode}
+          trailLength={trailLength}
+          trailOpacity={trailOpacity}
         />
       </main>
 
-      {/* ContextMenu rendering - fixed props */}
+      {showInfoCard && (
+          <MoleculeInfoCard
+              moleculeName={moleculeName}
+              info={moleculeInfo}
+              loading={isInfoLoading}
+              error={infoError}
+              onClose={() => setShowInfoCard(false)}
+          />
+      )}
+      
       {contextMenu.visible && (
         <ContextMenu
           x={contextMenu.x}
@@ -538,7 +899,14 @@ const App: React.FC = () => {
         />
       )}
 
-
+       {(isLoading || isSearching) && (
+        <div id="loading-overlay" className="absolute inset-0 bg-gray-900/80 flex items-center justify-center z-50 transition-opacity duration-300">
+            <div className="text-center">
+                <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+                {isSearching && <p className="mt-4 text-white text-lg">Searching databases...</p>}
+            </div>
+        </div>
+      )}
 
       <footer className="absolute bottom-0 left-0 right-0 p-2 text-center text-xs text-gray-500 z-10 bg-gray-900/50">
         <p>Use your mouse to orbit (left-click & drag), zoom (scroll), and pan (right-click & drag).</p>

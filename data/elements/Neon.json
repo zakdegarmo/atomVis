@@ -1,0 +1,53 @@
+{
+  "name": "Neon",
+  "appearance": "colorless gas exhibiting an orange-red glow when placed in a high voltage electric field",
+  "atomic_mass": 20.17976,
+  "boil": 27.104,
+  "category": "noble gas",
+  "density": 0.9002,
+  "discovered_by": "Morris Travers",
+  "melt": 24.56,
+  "molar_heat": null,
+  "named_by": null,
+  "number": 10,
+  "period": 2,
+  "group": 18,
+  "phase": "Gas",
+  "source": "https://en.wikipedia.org/wiki/Neon",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_010_neon/element_010_neon_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_010_neon/element_010_neon.glb",
+  "spectral_img": "https://en.wikipedia.org/wiki/File:Neon_spectra.jpg",
+  "summary": "Neon is a chemical element with symbol Ne and atomic number 10. It is in group 18 (noble gases) of the periodic table. Neon is a colorless, odorless, inert monatomic gas under standard conditions, with about two-thirds the density of air.",
+  "symbol": "Ne",
+  "xpos": 18,
+  "ypos": 2,
+  "wxpos": 32,
+  "wypos": 2,
+  "shells": [
+    2,
+    8
+  ],
+  "electron_configuration": "1s2 2s2 2p6",
+  "electron_configuration_semantic": "[He] 2s2 2p6",
+  "electron_affinity": -116,
+  "electronegativity_pauling": null,
+  "ionization_energies": [
+    2080.7,
+    3952.3,
+    6122,
+    9371,
+    12177,
+    15238,
+    19999,
+    23069.5,
+    115379.5,
+    131432
+  ],
+  "cpk-hex": "b3e3f5",
+  "image": {
+    "title": "Vial of Glowing Ultrapure neon. Original size in cm: 1 x 5",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Neon-glow.jpg",
+    "attribution": "Jurii, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/neon.php"
+  },
+  "block": "p"
+}

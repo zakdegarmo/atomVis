@@ -1,0 +1,51 @@
+{
+  "name": "Ytterbium",
+  "appearance": null,
+  "atomic_mass": 173.0451,
+  "boil": 1469,
+  "category": "lanthanide",
+  "density": 6.9,
+  "discovered_by": "Jean Charles Galissard de Marignac",
+  "melt": 1097,
+  "molar_heat": 26.74,
+  "named_by": null,
+  "number": 70,
+  "period": 6,
+  "group": 3,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Ytterbium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_070_ytterbium/element_070_ytterbium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_070_ytterbium/element_070_ytterbium.glb",
+  "spectral_img": null,
+  "summary": "Ytterbium is a chemical element with symbol Yb and atomic number 70. It is the fourteenth and penultimate element in the lanthanide series, which is the basis of the relative stability of its +2 oxidation state. However, like the other lanthanides, its most common oxidation state is +3, seen in its oxide, halides and other compounds.",
+  "symbol": "Yb",
+  "xpos": 16,
+  "ypos": 9,
+  "wxpos": 16,
+  "wypos": 6,
+  "shells": [
+    2,
+    8,
+    18,
+    32,
+    8,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14",
+  "electron_configuration_semantic": "[Xe] 4f14 6s2",
+  "electron_affinity": -1.93,
+  "electronegativity_pauling": 1.1,
+  "ionization_energies": [
+    603.4,
+    1174.8,
+    2417,
+    4203
+  ],
+  "cpk-hex": "00bf38",
+  "image": {
+    "title": "Ytterbium, 0.5 x 1 cm",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Ytterbium-3.jpg",
+    "attribution": "Jurii, CC BY 1.0 <https://creativecommons.org/licenses/by/1.0>, via Wikimedia Commons, source: https://images-of-elements.com/ytterbium.php"
+  },
+  "block": "f"
+}
