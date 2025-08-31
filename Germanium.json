@@ -1,0 +1,50 @@
+{
+  "name": "Germanium",
+  "appearance": "grayish-white",
+  "atomic_mass": 72.6308,
+  "boil": 3106,
+  "category": "metalloid",
+  "density": 5.323,
+  "discovered_by": "Clemens Winkler",
+  "melt": 1211.4,
+  "molar_heat": 23.222,
+  "named_by": null,
+  "number": 32,
+  "period": 4,
+  "group": 14,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Germanium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_032_germanium/element_032_germanium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_032_germanium/element_032_germanium.glb",
+  "spectral_img": null,
+  "summary": "Germanium is a chemical element with symbol Ge and atomic number 32. It is a lustrous, hard, grayish-white metalloid in the carbon group, chemically similar to its group neighbors tin and silicon. Purified germanium is a semiconductor, with an appearance most similar to elemental silicon.",
+  "symbol": "Ge",
+  "xpos": 14,
+  "ypos": 4,
+  "wxpos": 28,
+  "wypos": 4,
+  "shells": [
+    2,
+    8,
+    18,
+    4
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p2",
+  "electron_configuration_semantic": "[Ar] 3d10 4s2 4p2",
+  "electron_affinity": 118.9352,
+  "electronegativity_pauling": 2.01,
+  "ionization_energies": [
+    762,
+    1537.5,
+    3302.1,
+    4411,
+    9020
+  ],
+  "cpk-hex": "668f8f",
+  "image": {
+    "title": "12 Grams Polycrystalline Germanium, 2*3 cm",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/08/Polycrystalline-germanium.jpg",
+    "attribution": "Jurii, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/germanium.php"
+  },
+  "block": "p"
+}

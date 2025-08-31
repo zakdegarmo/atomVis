@@ -1,0 +1,49 @@
+{
+  "name": "Curium",
+  "appearance": "silvery metallic, glows purple in the dark",
+  "atomic_mass": 247,
+  "boil": 3383,
+  "category": "actinide",
+  "density": 13.51,
+  "discovered_by": "Glenn T. Seaborg",
+  "melt": 1613,
+  "molar_heat": null,
+  "named_by": null,
+  "number": 96,
+  "period": 7,
+  "group": 3,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Curium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_096_curium/element_096_curium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_096_curium/element_096_curium.glb",
+  "spectral_img": null,
+  "summary": "Curium is a transuranic radioactive chemical element with symbol Cm and atomic number 96. This element of the actinide series was named after Marie and Pierre Curie – both were known for their research on radioactivity. Curium was first intentionally produced and identified in July 1944 by the group of Glenn T. Seaborg at the University of California, Berkeley.",
+  "symbol": "Cm",
+  "xpos": 10,
+  "ypos": 10,
+  "wxpos": 10,
+  "wypos": 7,
+  "shells": [
+    2,
+    8,
+    18,
+    32,
+    25,
+    9,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f7 6d1",
+  "electron_configuration_semantic": "[Rn] 5f7 6d1 7s2",
+  "electron_affinity": 27.17,
+  "electronegativity_pauling": 1.28,
+  "ionization_energies": [
+    581
+  ],
+  "cpk-hex": "785ce3",
+  "image": {
+    "title": "A piece of curium, which emitts strong radiation that makes it glow",
+    "url": "https://images-of-elements.com/s/curium-glow.jpg",
+    "attribution": "European Union, The Actinide Group, Institute for Transuranium Elements (JRC-ITU), source: https://images-of-elements.com/curium.php"
+  },
+  "block": "f"
+}

@@ -1,0 +1,52 @@
+{
+  "name": "Zirconium",
+  "appearance": "silvery white",
+  "atomic_mass": 91.2242,
+  "boil": 4650,
+  "category": "transition metal",
+  "density": 6.52,
+  "discovered_by": "Martin Heinrich Klaproth",
+  "melt": 2128,
+  "molar_heat": 25.36,
+  "named_by": null,
+  "number": 40,
+  "period": 5,
+  "group": 4,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Zirconium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_040_zirconium/element_040_zirconium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_040_zirconium/element_040_zirconium.glb",
+  "spectral_img": null,
+  "summary": "Zirconium is a chemical element with symbol Zr and atomic number 40. The name of zirconium is taken from the name of the mineral zircon, the most important source of zirconium. The word zircon comes from the Persian word zargun زرگون, meaning \"gold-colored\".",
+  "symbol": "Zr",
+  "xpos": 4,
+  "ypos": 5,
+  "wxpos": 18,
+  "wypos": 5,
+  "shells": [
+    2,
+    8,
+    18,
+    10,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d2",
+  "electron_configuration_semantic": "[Kr] 4d2 5s2",
+  "electron_affinity": 41.806,
+  "electronegativity_pauling": 1.33,
+  "ionization_energies": [
+    640.1,
+    1270,
+    2218,
+    3313,
+    7752,
+    9500
+  ],
+  "cpk-hex": "94e0e0",
+  "image": {
+    "title": "Two pieces of Zirconium, 1 cm each.",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Zirconium-pieces.jpg",
+    "attribution": "Jurii, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/zirconium.php"
+  },
+  "block": "d"
+}

@@ -1,0 +1,50 @@
+{
+  "name": "Uranium",
+  "appearance": null,
+  "atomic_mass": 238.028913,
+  "boil": 4404,
+  "category": "actinide",
+  "density": 19.1,
+  "discovered_by": "Martin Heinrich Klaproth",
+  "melt": 1405.3,
+  "molar_heat": 27.665,
+  "named_by": null,
+  "number": 92,
+  "period": 7,
+  "group": 3,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Uranium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_092_uranium/element_092_uranium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_092_uranium/element_092_uranium.glb",
+  "spectral_img": null,
+  "summary": "Uranium is a chemical element with symbol U and atomic number 92. It is a silvery-white metal in the actinide series of the periodic table. A uranium atom has 92 protons and 92 electrons, of which 6 are valence electrons.",
+  "symbol": "U",
+  "xpos": 6,
+  "ypos": 10,
+  "wxpos": 6,
+  "wypos": 7,
+  "shells": [
+    2,
+    8,
+    18,
+    32,
+    21,
+    9,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f3 6d1",
+  "electron_configuration_semantic": "[Rn] 5f3 6d1 7s2",
+  "electron_affinity": 50.94,
+  "electronegativity_pauling": 1.38,
+  "ionization_energies": [
+    597.6,
+    1420
+  ],
+  "cpk-hex": "008fff",
+  "image": {
+    "title": "A biscuit of uranium metal after reduction via the Ames Process. c.1943.",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Ames_Process_uranium_biscuit.jpg",
+    "attribution": "Unknown authorUnknown author, Public domain, via Wikimedia Commons"
+  },
+  "block": "f"
+}

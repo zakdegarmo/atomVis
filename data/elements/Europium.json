@@ -1,0 +1,51 @@
+{
+  "name": "Europium",
+  "appearance": null,
+  "atomic_mass": 151.9641,
+  "boil": 1802,
+  "category": "lanthanide",
+  "density": 5.264,
+  "discovered_by": "Eugène-Anatole Demarçay",
+  "melt": 1099,
+  "molar_heat": 27.66,
+  "named_by": null,
+  "number": 63,
+  "period": 6,
+  "group": 3,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Europium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_063_europium/element_063_europium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_063_europium/element_063_europium.glb",
+  "spectral_img": null,
+  "summary": "Europium is a chemical element with symbol Eu and atomic number 63. It was isolated in 1901 and is named after the continent of Europe. It is a moderately hard, silvery metal which readily oxidizes in air and water.",
+  "symbol": "Eu",
+  "xpos": 9,
+  "ypos": 9,
+  "wxpos": 9,
+  "wypos": 6,
+  "shells": [
+    2,
+    8,
+    18,
+    25,
+    8,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f7",
+  "electron_configuration_semantic": "[Xe] 4f7 6s2",
+  "electron_affinity": 11.2,
+  "electronegativity_pauling": 1.2,
+  "ionization_energies": [
+    547.1,
+    1085,
+    2404,
+    4120
+  ],
+  "cpk-hex": "61ffc7",
+  "image": {
+    "title": "Weakly Oxidized Europium, hence slightly yellowish. 1.5 grams, large piece 0.6 x 1.6 cm.",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Europium.jpg",
+    "attribution": "Jurii, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/europium.php"
+  },
+  "block": "f"
+}

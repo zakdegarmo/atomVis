@@ -1,0 +1,52 @@
+{
+  "name": "Antimony",
+  "appearance": "silvery lustrous gray",
+  "atomic_mass": 121.7601,
+  "boil": 1908,
+  "category": "metalloid",
+  "density": 6.697,
+  "discovered_by": "unknown, before 3000 BC",
+  "melt": 903.78,
+  "molar_heat": 25.23,
+  "named_by": null,
+  "number": 51,
+  "period": 5,
+  "group": 15,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Antimony",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_051_antimony/element_051_antimony_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_051_antimony/element_051_antimony.glb",
+  "spectral_img": null,
+  "summary": "Antimony is a chemical element with symbol Sb (from Latin:stibium) and atomic number 51. A lustrous gray metalloid, it is found in nature mainly as the sulfide mineral stibnite (Sb2S3). Antimony compounds have been known since ancient times and were used for cosmetics; metallic antimony was also known, but it was erroneously identified as lead upon its discovery.",
+  "symbol": "Sb",
+  "xpos": 15,
+  "ypos": 5,
+  "wxpos": 29,
+  "wypos": 5,
+  "shells": [
+    2,
+    8,
+    18,
+    18,
+    5
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p3",
+  "electron_configuration_semantic": "[Kr] 4d10 5s2 5p3",
+  "electron_affinity": 101.059,
+  "electronegativity_pauling": 2.05,
+  "ionization_energies": [
+    834,
+    1594.9,
+    2440,
+    4260,
+    5400,
+    10400
+  ],
+  "cpk-hex": "9e63b5",
+  "image": {
+    "title": "Antimony crystal, 2 grams, 1 cm",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Antimony-4.jpg",
+    "attribution": "Unknown authorUnknown author, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/antimony.php"
+  },
+  "block": "p"
+}

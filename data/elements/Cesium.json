@@ -1,0 +1,50 @@
+{
+  "name": "Cesium",
+  "appearance": "silvery gold",
+  "atomic_mass": 132.905451966,
+  "boil": 944,
+  "category": "alkali metal",
+  "density": 1.93,
+  "discovered_by": "Robert Bunsen",
+  "melt": 301.7,
+  "molar_heat": 32.21,
+  "named_by": null,
+  "number": 55,
+  "period": 6,
+  "group": 1,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Cesium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_055_cesium/element_055_cesium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_055_cesium/element_055_cesium.glb",
+  "spectral_img": null,
+  "summary": "Caesium or cesium is a chemical element with symbol Cs and atomic number 55. It is a soft, silvery-gold alkali metal with a melting point of 28 °C (82 °F), which makes it one of only five elemental metals that are liquid at or near room temperature. Caesium is an alkali metal and has physical and chemical properties similar to those of rubidium and potassium.",
+  "symbol": "Cs",
+  "xpos": 1,
+  "ypos": 6,
+  "wxpos": 1,
+  "wypos": 6,
+  "shells": [
+    2,
+    8,
+    18,
+    18,
+    8,
+    1
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s1",
+  "electron_configuration_semantic": "[Xe] 6s1",
+  "electron_affinity": 45.505,
+  "electronegativity_pauling": 0.79,
+  "ionization_energies": [
+    375.7,
+    2234.3,
+    3400
+  ],
+  "cpk-hex": "57178f",
+  "image": {
+    "title": "Cesium/Caesium metal",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Cesium.jpg",
+    "attribution": "Dnn87 Contact email: Dnn87yahoo.dk, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons"
+  },
+  "block": "s"
+}

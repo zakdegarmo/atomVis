@@ -1,0 +1,49 @@
+{
+  "name": "Tantalum",
+  "appearance": "gray blue",
+  "atomic_mass": 180.947882,
+  "boil": 5731,
+  "category": "transition metal",
+  "density": 16.69,
+  "discovered_by": "Anders Gustaf Ekeberg",
+  "melt": 3290,
+  "molar_heat": 25.36,
+  "named_by": null,
+  "number": 73,
+  "period": 6,
+  "group": 5,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Tantalum",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_073_tantalum/element_073_tantalum_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_073_tantalum/element_073_tantalum.glb",
+  "spectral_img": "https://en.wikipedia.org/wiki/File:Tantalum_spectrum_visible.png",
+  "summary": "Tantalum is a chemical element with symbol Ta and atomic number 73. Previously known as tantalium, its name comes from Tantalus, an antihero from Greek mythology. Tantalum is a rare, hard, blue-gray, lustrous transition metal that is highly corrosion-resistant.",
+  "symbol": "Ta",
+  "xpos": 5,
+  "ypos": 6,
+  "wxpos": 19,
+  "wypos": 6,
+  "shells": [
+    2,
+    8,
+    18,
+    32,
+    11,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d3",
+  "electron_configuration_semantic": "[Xe] 4f14 5d3 6s2",
+  "electron_affinity": 31,
+  "electronegativity_pauling": 1.5,
+  "ionization_energies": [
+    761,
+    1500
+  ],
+  "cpk-hex": "4da6ff",
+  "image": {
+    "title": "Piece of tantalum, 1 cm in size",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/6/61/Tantalum.jpg",
+    "attribution": "Jurii, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/tantalum.php"
+  },
+  "block": "d"
+}

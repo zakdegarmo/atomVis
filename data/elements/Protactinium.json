@@ -1,0 +1,49 @@
+{
+  "name": "Protactinium",
+  "appearance": "bright, silvery metallic luster",
+  "atomic_mass": 231.035882,
+  "boil": 4300,
+  "category": "actinide",
+  "density": 15.37,
+  "discovered_by": "William Crookes",
+  "melt": 1841,
+  "molar_heat": null,
+  "named_by": "Otto Hahn",
+  "number": 91,
+  "period": 7,
+  "group": 3,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Protactinium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_091_protactinium/element_091_protactinium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_091_protactinium/element_091_protactinium.glb",
+  "spectral_img": null,
+  "summary": "Protactinium is a chemical element with symbol Pa and atomic number 91. It is a dense, silvery-gray metal which readily reacts with oxygen, water vapor and inorganic acids. It forms various chemical compounds where protactinium is usually present in the oxidation state +5, but can also assume +4 and even +2 or +3 states.",
+  "symbol": "Pa",
+  "xpos": 5,
+  "ypos": 10,
+  "wxpos": 5,
+  "wypos": 7,
+  "shells": [
+    2,
+    8,
+    18,
+    32,
+    20,
+    9,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f2 6d1",
+  "electron_configuration_semantic": "[Rn] 5f2 6d1 7s2",
+  "electron_affinity": 53.03,
+  "electronegativity_pauling": 1.5,
+  "ionization_energies": [
+    568
+  ],
+  "cpk-hex": "00a1ff",
+  "image": {
+    "title": "This sample of Protactinium-233 (dark circular area in the photo) was photographed in the light from its own radioactive emission (the lighter area) at the National Reactor Testing Station in Idaho.",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/af/Protactinium-233.jpg",
+    "attribution": "ENERGY.GOV, Public domain, via Wikimedia Commons"
+  },
+  "block": "f"
+}

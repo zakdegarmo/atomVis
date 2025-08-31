@@ -1,0 +1,49 @@
+{
+  "name": "Berkelium",
+  "appearance": "silvery",
+  "atomic_mass": 247,
+  "boil": 2900,
+  "category": "actinide",
+  "density": 14.78,
+  "discovered_by": "Lawrence Berkeley National Laboratory",
+  "melt": 1259,
+  "molar_heat": null,
+  "named_by": null,
+  "number": 97,
+  "period": 7,
+  "group": 3,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Berkelium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_097_berkelium/element_097_berkelium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_097_berkelium/element_097_berkelium.glb",
+  "spectral_img": null,
+  "summary": "Berkelium is a transuranic radioactive chemical element with symbol Bk and atomic number 97. It is a member of the actinide and transuranium element series. It is named after the city of Berkeley, California, the location of the University of California Radiation Laboratory where it was discovered in December 1949.",
+  "symbol": "Bk",
+  "xpos": 11,
+  "ypos": 10,
+  "wxpos": 11,
+  "wypos": 7,
+  "shells": [
+    2,
+    8,
+    18,
+    32,
+    27,
+    8,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f9",
+  "electron_configuration_semantic": "[Rn] 5f9 7s2",
+  "electron_affinity": -165.24,
+  "electronegativity_pauling": 1.3,
+  "ionization_energies": [
+    601
+  ],
+  "cpk-hex": "8a4fe3",
+  "image": {
+    "title": "It took 250 days to make enough berkelium, shown here (in dissolved state), to synthesize element 117",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/f/fc/Berkelium.jpg",
+    "attribution": "ORNL, Department of Energy, Public domain, via Wikimedia Commons"
+  },
+  "block": "f"
+}

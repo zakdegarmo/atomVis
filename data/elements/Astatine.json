@@ -1,0 +1,48 @@
+{
+  "name": "Astatine",
+  "appearance": "unknown, probably metallic",
+  "atomic_mass": 210,
+  "boil": 610,
+  "category": "metalloid",
+  "density": 6.35,
+  "discovered_by": "Dale R. Corson",
+  "melt": 575,
+  "molar_heat": null,
+  "named_by": null,
+  "number": 85,
+  "period": 6,
+  "group": 17,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Astatine",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_085_astatine/element_085_astatine_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_085_astatine/element_085_astatine.glb",
+  "spectral_img": null,
+  "summary": "Astatine is a very rare radioactive chemical element with the chemical symbol At and atomic number 85. It occurs on Earth as the decay product of various heavier elements. All its isotopes are short-lived; the most stable is astatine-210, with a half-life of 8.1 hours.",
+  "symbol": "At",
+  "xpos": 17,
+  "ypos": 6,
+  "wxpos": 31,
+  "wypos": 6,
+  "shells": [
+    2,
+    8,
+    18,
+    32,
+    18,
+    7
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p5",
+  "electron_configuration_semantic": "[Xe] 4f14 5d10 6s2 6p5",
+  "electron_affinity": 233,
+  "electronegativity_pauling": 2.2,
+  "ionization_energies": [
+    899.003
+  ],
+  "cpk-hex": "754f45",
+  "image": {
+    "title": "This is only an illustration, not astatine itself. Crystals similar to iodine, but darker in color than these, which due to the extreme radioactivity glow blue and evaporate to dark purple gas",
+    "url": "https://images-of-elements.com/astatine.jpg",
+    "attribution": "Chemical ELements A Virtual Museum, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0> source: https://images-of-elements.com/astatine.php"
+  },
+  "block": "p"
+}

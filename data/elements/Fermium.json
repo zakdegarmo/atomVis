@@ -1,0 +1,49 @@
+{
+  "name": "Fermium",
+  "appearance": null,
+  "atomic_mass": 257,
+  "boil": null,
+  "category": "actinide",
+  "density": null,
+  "discovered_by": "Lawrence Berkeley National Laboratory",
+  "melt": 1800,
+  "molar_heat": null,
+  "named_by": null,
+  "number": 100,
+  "period": 7,
+  "group": 3,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Fermium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_100_fermium/element_100_fermium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_100_fermium/element_100_fermium.glb",
+  "spectral_img": null,
+  "summary": "Fermium is a synthetic element with symbol Fm and atomic number 100. It is a member of the actinide series. It is the heaviest element that can be formed by neutron bombardment of lighter elements, and hence the last element that can be prepared in macroscopic quantities, although pure fermium metal has not yet been prepared.",
+  "symbol": "Fm",
+  "xpos": 14,
+  "ypos": 10,
+  "wxpos": 14,
+  "wypos": 7,
+  "shells": [
+    2,
+    8,
+    18,
+    32,
+    30,
+    8,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f12",
+  "electron_configuration_semantic": "[Rn] 5f12 7s2",
+  "electron_affinity": 33.96,
+  "electronegativity_pauling": 1.3,
+  "ionization_energies": [
+    627
+  ],
+  "cpk-hex": "b31fba",
+  "image": {
+    "title": "Fermium was first observed in the fallout from the Ivy Mike nuclear test.",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/58/Ivy_Mike_-_mushroom_cloud.jpg",
+    "attribution": "U.S. Department of Energy, Public domain, via Wikimedia Commons"
+  },
+  "block": "f"
+}

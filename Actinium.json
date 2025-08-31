@@ -1,0 +1,50 @@
+{
+  "name": "Actinium",
+  "appearance": null,
+  "atomic_mass": 227,
+  "boil": 3500,
+  "category": "actinide",
+  "density": 10,
+  "discovered_by": "Friedrich Oskar Giesel",
+  "melt": 1500,
+  "molar_heat": 27.2,
+  "named_by": null,
+  "number": 89,
+  "period": 7,
+  "group": 3,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Actinium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_089_actinium/element_089_actinium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_089_actinium/element_089_actinium.glb",
+  "spectral_img": null,
+  "summary": "Actinium is a radioactive chemical element with symbol Ac (not to be confused with the abbreviation for an acetyl group) and atomic number 89, which was discovered in 1899. It was the first non-primordial radioactive element to be isolated. Polonium, radium and radon were observed before actinium, but they were not isolated until 1902.",
+  "symbol": "Ac",
+  "xpos": 3,
+  "ypos": 10,
+  "wxpos": 3,
+  "wypos": 7,
+  "shells": [
+    2,
+    8,
+    18,
+    32,
+    18,
+    9,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 6d1",
+  "electron_configuration_semantic": "[Rn] 6d1 7s2",
+  "electron_affinity": 33.77,
+  "electronegativity_pauling": 1.1,
+  "ionization_energies": [
+    499,
+    1170
+  ],
+  "cpk-hex": "70abfa",
+  "image": {
+    "title": "Actinium-225 medical radioisotope held in a v-vial at ORNL. The blue glow comes from the ionization of surrounding air by alpha particles",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/2/27/Actinium_sample_%2831481701837%29.png",
+    "attribution": "Oak Ridge National Laboratory, CC BY 2.0 <https://creativecommons.org/licenses/by/2.0>, via Wikimedia Commons, source: https://www.flickr.com/photos/oakridgelab/31481701837/"
+  },
+  "block": "f"
+}

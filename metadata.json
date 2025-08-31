@@ -1,0 +1,5 @@
+{
+  "name": "3D Atom Visualizer",
+  "description": "A web application to visualize atomic structures in 3D using data from the periodic table. Select an element to see its nucleus and electron shell configuration rendered with three.js.",
+  "requestFramePermissions": []
+}

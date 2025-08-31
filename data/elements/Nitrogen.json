@@ -1,0 +1,50 @@
+{
+  "name": "Nitrogen",
+  "appearance": "colorless gas, liquid or solid",
+  "atomic_mass": 14.007,
+  "boil": 77.355,
+  "category": "diatomic nonmetal",
+  "density": 1.251,
+  "discovered_by": "Daniel Rutherford",
+  "melt": 63.15,
+  "molar_heat": null,
+  "named_by": "Jean-Antoine Chaptal",
+  "number": 7,
+  "period": 2,
+  "group": 15,
+  "phase": "Gas",
+  "source": "https://en.wikipedia.org/wiki/Nitrogen",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_007_nitrogen/element_007_nitrogen_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_007_nitrogen/element_007_nitrogen.glb",
+  "spectral_img": "https://en.wikipedia.org/wiki/File:Nitrogen_Spectra.jpg",
+  "summary": "Nitrogen is a chemical element with symbol N and atomic number 7. It is the lightest pnictogen and at room temperature, it is a transparent, odorless diatomic gas. Nitrogen is a common element in the universe, estimated at about seventh in total abundance in the Milky Way and the Solar System.",
+  "symbol": "N",
+  "xpos": 15,
+  "ypos": 2,
+  "wxpos": 29,
+  "wypos": 2,
+  "shells": [
+    2,
+    5
+  ],
+  "electron_configuration": "1s2 2s2 2p3",
+  "electron_configuration_semantic": "[He] 2s2 2p3",
+  "electron_affinity": -6.8,
+  "electronegativity_pauling": 3.04,
+  "ionization_energies": [
+    1402.3,
+    2856,
+    4578.1,
+    7475,
+    9444.9,
+    53266.6,
+    64360
+  ],
+  "cpk-hex": "3050f8",
+  "image": {
+    "title": "Vial of Glowing Ultrapure Nitrogen, N2. Original size in cm: 1 x 5",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Nitrogen-glow.jpg",
+    "attribution": "Jurii, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/nitrogen.php"
+  },
+  "block": "p"
+}

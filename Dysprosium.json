@@ -1,0 +1,51 @@
+{
+  "name": "Dysprosium",
+  "appearance": "silvery white",
+  "atomic_mass": 162.5001,
+  "boil": 2840,
+  "category": "lanthanide",
+  "density": 8.54,
+  "discovered_by": "Lecoq de Boisbaudran",
+  "melt": 1680,
+  "molar_heat": 27.7,
+  "named_by": null,
+  "number": 66,
+  "period": 6,
+  "group": 3,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Dysprosium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_066_dysprosium/element_066_dysprosium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_066_dysprosium/element_066_dysprosium.glb",
+  "spectral_img": null,
+  "summary": "Dysprosium is a chemical element with the symbol Dy and atomic number 66. It is a rare earth element with a metallic silver luster. Dysprosium is never found in nature as a free element, though it is found in various minerals, such as xenotime.",
+  "symbol": "Dy",
+  "xpos": 12,
+  "ypos": 9,
+  "wxpos": 12,
+  "wypos": 6,
+  "shells": [
+    2,
+    8,
+    18,
+    28,
+    8,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f10",
+  "electron_configuration_semantic": "[Xe] 4f10 6s2",
+  "electron_affinity": 33.96,
+  "electronegativity_pauling": 1.22,
+  "ionization_energies": [
+    573,
+    1130,
+    2200,
+    3990
+  ],
+  "cpk-hex": "1fffc7",
+  "image": {
+    "title": "Pure Dysprosium Dendrites",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/55/Dysprosium-2.jpg",
+    "attribution": "Jurii, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/dysprosium.php"
+  },
+  "block": "f"
+}

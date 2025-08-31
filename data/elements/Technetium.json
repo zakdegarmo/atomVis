@@ -1,0 +1,49 @@
+{
+  "name": "Technetium",
+  "appearance": "shiny gray metal",
+  "atomic_mass": 98,
+  "boil": 4538,
+  "category": "transition metal",
+  "density": 11,
+  "discovered_by": "Emilio Segrè",
+  "melt": 2430,
+  "molar_heat": 24.27,
+  "named_by": null,
+  "number": 43,
+  "period": 5,
+  "group": 7,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Technetium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_043_technetium/element_043_technetium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_043_technetium/element_043_technetium.glb",
+  "spectral_img": null,
+  "summary": "Technetium (/tɛkˈniːʃiəm/) is a chemical element with symbol Tc and atomic number 43. It is the element with the lowest atomic number in the periodic table that has no stable isotopes:every form of it is radioactive. Nearly all technetium is produced synthetically, and only minute amounts are found in nature.",
+  "symbol": "Tc",
+  "xpos": 7,
+  "ypos": 5,
+  "wxpos": 21,
+  "wypos": 5,
+  "shells": [
+    2,
+    8,
+    18,
+    13,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d5",
+  "electron_configuration_semantic": "[Kr] 4d5 5s2",
+  "electron_affinity": 53,
+  "electronegativity_pauling": 1.9,
+  "ionization_energies": [
+    702,
+    1470,
+    2850
+  ],
+  "cpk-hex": "3b9e9e",
+  "image": {
+    "title": "Technetium Sample inside a sealed glass ampoule, filled with argon gas. 6x1 mm goldfoil covered with 99Tc powder (electroplated).",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Technetium-sample-cropped.jpg",
+    "attribution": "GFDL, CC BY-SA 4.0 <https://creativecommons.org/licenses/by-sa/4.0>, via Wikimedia Commons"
+  },
+  "block": "d"
+}

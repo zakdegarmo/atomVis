@@ -1,0 +1,49 @@
+{
+  "name": "Xenon",
+  "appearance": "colorless gas, exhibiting a blue glow when placed in a high voltage electric field",
+  "atomic_mass": 131.2936,
+  "boil": 165.051,
+  "category": "noble gas",
+  "density": 5.894,
+  "discovered_by": "William Ramsay",
+  "melt": 161.4,
+  "molar_heat": null,
+  "named_by": null,
+  "number": 54,
+  "period": 5,
+  "group": 18,
+  "phase": "Gas",
+  "source": "https://en.wikipedia.org/wiki/Xenon",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_054_xenon/element_054_xenon_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_054_xenon/element_054_xenon.glb",
+  "spectral_img": "https://en.wikipedia.org/wiki/File:Xenon_Spectrum.jpg",
+  "summary": "Xenon is a chemical element with symbol Xe and atomic number 54. It is a colorless, dense, odorless noble gas, that occurs in the Earth's atmosphere in trace amounts. Although generally unreactive, xenon can undergo a few chemical reactions such as the formation of xenon hexafluoroplatinate, the first noble gas compound to be synthesized.",
+  "symbol": "Xe",
+  "xpos": 18,
+  "ypos": 5,
+  "wxpos": 32,
+  "wypos": 5,
+  "shells": [
+    2,
+    8,
+    18,
+    18,
+    8
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6",
+  "electron_configuration_semantic": "[Kr] 4d10 5s2 5p6",
+  "electron_affinity": -77,
+  "electronegativity_pauling": 2.6,
+  "ionization_energies": [
+    1170.4,
+    2046.4,
+    3099.4
+  ],
+  "cpk-hex": "429eb0",
+  "image": {
+    "title": "Vial of glowing ultrapure xenon. Original size in cm: 1 x 5",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/5d/Xenon-glow.jpg",
+    "attribution": "Jurii, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/xenon.php"
+  },
+  "block": "p"
+}

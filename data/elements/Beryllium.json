@@ -1,0 +1,47 @@
+{
+  "name": "Beryllium",
+  "appearance": "white-gray metallic",
+  "atomic_mass": 9.01218315,
+  "boil": 2742,
+  "category": "alkaline earth metal",
+  "density": 1.85,
+  "discovered_by": "Louis Nicolas Vauquelin",
+  "melt": 1560,
+  "molar_heat": 16.443,
+  "named_by": null,
+  "number": 4,
+  "period": 2,
+  "group": 2,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Beryllium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_004_beryllium/element_004_beryllium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_004_beryllium/element_004_beryllium.glb",
+  "spectral_img": null,
+  "summary": "Beryllium is a chemical element with symbol Be and atomic number 4. It is created through stellar nucleosynthesis and is a relatively rare element in the universe. It is a divalent element which occurs naturally only in combination with other elements in minerals.",
+  "symbol": "Be",
+  "xpos": 2,
+  "ypos": 2,
+  "wxpos": 2,
+  "wypos": 2,
+  "shells": [
+    2,
+    2
+  ],
+  "electron_configuration": "1s2 2s2",
+  "electron_configuration_semantic": "[He] 2s2",
+  "electron_affinity": -48,
+  "electronegativity_pauling": 1.57,
+  "ionization_energies": [
+    899.5,
+    1757.1,
+    14848.7,
+    21006.6
+  ],
+  "cpk-hex": "c2ff00",
+  "image": {
+    "title": "Pure Beryllium bead, 2.5 grams. Original size in cm: 1 x 1.5",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Beryllium_%28Be%29.jpg",
+    "attribution": "Hi-Res Images ofChemical Elements, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/beryllium.php"
+  },
+  "block": "s"
+}

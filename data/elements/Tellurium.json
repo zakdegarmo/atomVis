@@ -1,0 +1,53 @@
+{
+  "name": "Tellurium",
+  "appearance": null,
+  "atomic_mass": 127.603,
+  "boil": 1261,
+  "category": "metalloid",
+  "density": 6.24,
+  "discovered_by": "Franz-Joseph Müller von Reichenstein",
+  "melt": 722.66,
+  "molar_heat": 25.73,
+  "named_by": null,
+  "number": 52,
+  "period": 5,
+  "group": 16,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Tellurium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_052_tellurium/element_052_tellurium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_052_tellurium/element_052_tellurium.glb",
+  "spectral_img": null,
+  "summary": "Tellurium is a chemical element with symbol Te and atomic number 52. It is a brittle, mildly toxic, rare, silver-white metalloid. Tellurium is chemically related to selenium and sulfur.",
+  "symbol": "Te",
+  "xpos": 16,
+  "ypos": 5,
+  "wxpos": 30,
+  "wypos": 5,
+  "shells": [
+    2,
+    8,
+    18,
+    18,
+    6
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p4",
+  "electron_configuration_semantic": "[Kr] 4d10 5s2 5p4",
+  "electron_affinity": 190.161,
+  "electronegativity_pauling": 2.1,
+  "ionization_energies": [
+    869.3,
+    1790,
+    2698,
+    3610,
+    5668,
+    6820,
+    13200
+  ],
+  "cpk-hex": "d47a00",
+  "image": {
+    "title": "Metallic tellurium, diameter 3.5 cm",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Tellurium2.jpg",
+    "attribution": "Unknown authorUnknown author, CC BY 3.0 <https://creativecommons.org/licenses/by/3.0>, via Wikimedia Commons, source: https://images-of-elements.com/tellurium.php"
+  },
+  "block": "p"
+}

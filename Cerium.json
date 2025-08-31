@@ -1,0 +1,53 @@
+{
+  "name": "Cerium",
+  "appearance": "silvery white",
+  "atomic_mass": 140.1161,
+  "boil": 3716,
+  "category": "lanthanide",
+  "density": 6.77,
+  "discovered_by": "Martin Heinrich Klaproth",
+  "melt": 1068,
+  "molar_heat": 26.94,
+  "named_by": null,
+  "number": 58,
+  "period": 6,
+  "group": 3,
+  "phase": "Solid",
+  "source": "https://en.wikipedia.org/wiki/Cerium",
+  "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_058_cerium/element_058_cerium_srp_th.png",
+  "bohr_model_3d": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_058_cerium/element_058_cerium.glb",
+  "spectral_img": null,
+  "summary": "Cerium is a chemical element with symbol Ce and atomic number 58. It is a soft, silvery, ductile metal which easily oxidizes in air. Cerium was named after the dwarf planet Ceres (itself named after the Roman goddess of agriculture).",
+  "symbol": "Ce",
+  "xpos": 4,
+  "ypos": 9,
+  "wxpos": 4,
+  "wypos": 6,
+  "shells": [
+    2,
+    8,
+    18,
+    19,
+    9,
+    2
+  ],
+  "electron_configuration": "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 5d1 4f1",
+  "electron_configuration_semantic": "[Xe] 4f1 5d1 6s2",
+  "electron_affinity": 55,
+  "electronegativity_pauling": 1.12,
+  "ionization_energies": [
+    534.4,
+    1050,
+    1949,
+    3547,
+    6325,
+    7490
+  ],
+  "cpk-hex": "ffffc7",
+  "image": {
+    "title": "Ultrapure Cerium under Argon, 1.5 grams. Original size in cm: 1 x 1",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Cerium2.jpg",
+    "attribution": "Jurii, CC BY 1.0 <https://creativecommons.org/licenses/by/1.0>, via Wikimedia Commons, source: https://images-of-elements.com/cerium.php"
+  },
+  "block": "f"
+}
